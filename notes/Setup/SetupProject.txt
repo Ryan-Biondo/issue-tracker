@@ -1,0 +1,24 @@
+Sort your project's planned Features
+Core/Essential:
+creating an issue
+viewing issue
+updating an issue
+deleting an issue
+
+Advanced/Nice to have:
+User Auth
+Assigning issues
+sorting
+filtering
+pagination
+dashboard
+
+
+Note: dont be a perfectionist, and waste your time
+come up with a working solution then improve it - "Refactoring"
+
+npx create-next-app@13.4.19
+and default values
+
+Cleanup - remove markup from the main page.tsx
+remove background colors and dark mode text from global.css

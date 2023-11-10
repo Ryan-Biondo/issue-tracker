@@ -1,0 +1,29 @@
+Set up a path for the issues link
+- folder named issues, with a page.tsx
+rafce and rename
+To highlight Active Link
+- use Nextjs hook to get the current path/route
+import {usePathname} from 'next/navigation'
+call the hook to get the current path
+const currentPath = usePathname()
+this hook is dependent on browser APIs (route)
+- so we need to 'use client' and convert to a client component
+
+clg currentPath to check values, should be / and /issues
+wrap styles in {curlybraces} and replace '' with `` so we can add data dynamically
+crt+d multicursor selects same selection
+once wrapped can use a ternary to check
+`${link.href === currentPath ? 'color' : 'lighter'} otherstyles`
+use class names package to help sort through complex conditions and tracking classes
+npm i classnames@2.3.2
+import classnames from 'classnames' 
+this is a method we call and give it an object
+- the object specifys the classes to render and their conditions
+call classnames, give it an object
+give it key value pairs - keys are the css classes, value is boolean
+className={classnames({
+    'text-zinc-900': link.href === currentPath,
+    'text-zinc-500': link.href !== currentPath,
+    'hover:text-zinc-800 transition-colors': true
+})}
+* Basically allows you so set a multitude of conditions for the whole map

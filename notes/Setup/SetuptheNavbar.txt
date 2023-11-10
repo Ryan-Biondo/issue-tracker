@@ -1,29 +1,3 @@
-Sort your project's planned Features
-Core/Essential:
-creating an issue
-viewing issue
-updating an issue
-deleting an issue
-
-Advanced/Nice to have:
-User Auth
-Assigning issues
-sorting
-filtering
-pagination
-dashboard
-
-
-Note: dont be a perfectionist, and waste your time
-come up with a working solution then improve it - "Refactoring"
-
-npx create-next-app@13.4.19
-and default values
-
-Cleanup - remove markup from the main page.tsx
-remove background colors and dark mode text from global.css
-
-
 We dont need all our components in the components directory, 
 - we can co-locate our components with the pages or layout they are used
 - ex. a navbar might lie with our main layout because we only use it there
@@ -65,3 +39,4 @@ I destructured the properties for mine
             {label}
           </Link>
         ))}
+  *Anytime you map you need a key property
