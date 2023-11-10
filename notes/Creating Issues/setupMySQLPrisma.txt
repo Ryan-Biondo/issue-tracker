@@ -1,0 +1,25 @@
+Install MySQL
+MySQL is a database engine like Postgres, MongoDB
+MySQL Community Server download is free
+
+install Prisma
+npm i prisma@5.3.1
+
+then initialize Prisma in the projext
+npx prisma init
+- creates prisma folder with schema file
+- edit the config for MySQL
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+-edit .env to access db
+- change to mysql, root user, pw, 3306 is for mysql, project name, no queries needed
+DATABASE_URL="mysql://root:randompassword@localhost:3306/project-name"
+*MAKE SURE .env is hidden before you commit
