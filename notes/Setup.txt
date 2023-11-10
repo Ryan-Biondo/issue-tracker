@@ -1,0 +1,67 @@
+Sort your project's planned Features
+Core/Essential:
+creating an issue
+viewing issue
+updating an issue
+deleting an issue
+
+Advanced/Nice to have:
+User Auth
+Assigning issues
+sorting
+filtering
+pagination
+dashboard
+
+
+Note: dont be a perfectionist, and waste your time
+come up with a working solution then improve it - "Refactoring"
+
+npx create-next-app@13.4.19
+and default values
+
+Cleanup - remove markup from the main page.tsx
+remove background colors and dark mode text from global.css
+
+
+We dont need all our components in the components directory, 
+- we can co-locate our components with the pages or layout they are used
+- ex. a navbar might lie with our main layout because we only use it there
+Create a navbar component
+rafce
+NavBar - use a nav element, and use Link from next/Link
+href to / for home
+/issues to issues page (folder with page)
+
+Add the NavBar component to our main layout!
+In main layout move children inside a main element for semantics
+
+ul>li*2
+tailwind classname to flex for horizontal 
+space-x-6 for spacing, mb-5 for bottom margin, px-5 for padding
+border-b for border bottom
+h-14 to raise height
+items-center to center
+
+React Icons
+npm i react-icons@4.11.0
+AiFillBug from 'react-icons/ai'
+
+Style links
+text-zinc-500
+hover:text-zinc-800
+transition-colors
+instead of repeating classes, declare an array and map it to a bunch of li items
+const links = [
+    {label: 'Dashboard', href: '/' }
+]
+
+{links.map(link => <Link key={link.href} href={link.href}>{link.label}</Link>)}
+I destructured the properties for mine
+{links.map(({ href, label }) => (
+          <Link
+            href={href}
+            className="text-zinc-500 hover:text-zinc-800 transition-colors">
+            {label}
+          </Link>
+        ))}
