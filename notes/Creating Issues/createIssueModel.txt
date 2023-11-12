@@ -1,0 +1,36 @@
+Store issues in our database 
+- create a prisma model
+define a new model (model Issue)
+make sure naming is singular and PascalCase
+- define the properies our issues will need
+ex. id name of property
+Int type
+@id id attribute to specify this is an id column
+@default to give it a default value
+(autoincrement()) - database engine auto assigns an id
+
+strings by default have a max of 191 chars in mysql
+- override default value by accessing db @db.
+VarChar(255)
+set to Text instead for very long inputs
+
+enum - a set of constant values supported in MySQL (NOT all db)
+Issues will have a status which can be 1 of 3 values open inprogress and closed
+- can use an enum to represent the data
+enum Status { - all caps
+    OPEN
+    IN_PROGRESS
+    CLOSED
+}
+then you can set a properties type to the enum Status @default(OPEN)
+
+DateTime - type for time @default(now()) - stamps when created
+@updatedAt - triggers on update
+
+then run npx prisma format to fix
+npx prisma migrate dev - name something like create issue model
+on 1st migrate prisma creates a migrate folder with subfolders for each migrate
+- inside are sql instructions for creating or updating our models
+
+In workbench, Create a connection with the same name as project
+- not sure about workbench and datagrip differences
