@@ -1,0 +1,189 @@
+Create an API that clients can call
+
+add a new folder called api
+inside create another folder for our issues with a route.ts
+import {NextRequest} from 'next/server';
+create a function called post, it takes a request object
+export function POST(request: NextRequest)
+call request.json and await it in the body of the request
+make the function async
+
+validate our request
+- use Zod!
+npm i zod@3.22.2
+import {z} from 'zod';
+
+outside the handler, call z.object and give it an object that defines the shape of the object and body of request
+refer to the prisma model to get fields that are not default like id or time
+ex. title: z.string().min(1).max(255),
+
+store it in a constant can call schema or something more specific
+use the variable to validate the request
+const validation = schema.safeParse(body);
+
+then can check if !validation.success
+if no, return a NextResponse (from next/server)
+return NextResponse.json(validation.error.errors, {status: 400}) 400 - request was invalid
+
+if request is valid we can store issue in db - import prisma client
+create file in the prisma folder called client.ts
+https://www.prisma.io/docs/guides/other/troubleshooting-orm/help-articles/nextjs-prisma-client-dev-practices
+copy The solution in this case is to instantiate a single instance PrismaClient and save it on the globalThis object
+*you never have to touch it or maintain it
+- all it does is creates a single instance of prisma and ensures we dont have multiple
+
+import prisma from the client in the prisma folder
+import prisma from "@/prisma/client";
+
+insert a new issue in the db
+prisma.issue.create({ // pass an object
+    data: { title:body.title, description: body.description }
+})
+
+await the call to get the newIssue (const)
+return NextResponse.json(newIssue, { status: 201 }) 201 - object was created
+
+Done, now we test in postman
+send a post request to /api/issues
+use a raw body json object test title and description
+should 400 on an empty string because of out zod validation and an error object
+with valid inputs get a status 201 and issue object
+
+
+
+
+Bard Discussion:
+In a broader sense, building an API basically means setting up endpoints to another program to communicate with.
+
+An API (application programming interface) is a set of rules and specifications 
+that define how software components should interact with each other. 
+It provides a way for two pieces of software to communicate with each other and exchange data.
+in a nextjs project, i am setting up mysql and prisma, now it's time to "build an API" what does that mean?
+
+Building an API in a Next.js project with MySQL and Prisma means creating endpoints 
+that can be accessed by external applications to read and write data to your database.
+
+Prisma makes it easy to build APIs by providing a type-safe interface to your database. 
+This means that you can write code to interact with your database 
+without having to worry about SQL syntax or escaping queries.
+
+To build an API with Prisma in Next.js, you will need to:
+
+Create a Prisma schema that defines the tables and relationships in your database.
+Generate a Prisma Client that provides an interface to your database.
+Create API endpoints that use the Prisma Client to interact with your database.
+Deploy your Next.js application to a production environment.
+Once your API is deployed, you can access it from external applications using HTTP requests. For example, you could use your API to build a mobile app, a web app, or a backend system for another application.
+
+Here is a simple example of an API endpoint that uses Prisma to read data from a database:
+JavaScript
+// pages/api/posts.js
+
+import { PrismaClient } from "@prisma/client";
+
+const prisma = new PrismaClient();
+
+export default async function handler(req, res) {
+  const posts = await prisma.post.findMany();
+
+  res.json(posts);
+}
+
+
+This endpoint can be accessed by sending a GET request to the /api/posts endpoint. 
+The response will be a JSON array of all the posts in the database.
+
+You can also use Prisma to create API endpoints that write data to the database. 
+For example, the following endpoint creates a new post in the database:
+JavaScript
+// pages/api/posts.js
+
+import { PrismaClient } from "@prisma/client";
+
+const prisma = new PrismaClient();
+
+export default async function handler(req, res) {
+  const post = await prisma.post.create({
+    title: req.body.title,
+    content: req.body.content,
+  });
+
+  res.json(post);
+}
+
+
+This endpoint can be accessed by sending a POST request to the /api/posts endpoint 
+with the title and content of the new post in the request body.
+
+You can create API endpoints for any type of operation that you need to perform on your database. 
+For example, you could create endpoints to create, read, update, and delete data, or to perform complex queries.
+
+Once you have created your API endpoints, you can deploy your Next.js application to a production environment. 
+Then, you can start using your API to build other applications.
+
+
+
+so we basically create an endpoint and import prisma and await the call. do we ALWAYS need a handler?
+show me a more complex situation where we might get post update delete
+
+
+Yes, you will always need a handler for your API endpoints. 
+The handler is the function that is called when a request is made to the endpoint. 
+It is responsible for processing the request and returning a response.
+
+Here is an example of a more complex API endpoint that handles three different operations: POST, PUT, and DELETE. 
+This endpoint could be used to create, update, and delete posts in a database.
+
+JavaScript
+// pages/api/posts/[id].js
+
+import { PrismaClient } from
+ 
+"@prisma/client";
+
+const prisma = new PrismaClient();
+
+export default async function handler(req, res) {
+  const postId = req.query.id;
+
+  if (req.method === "POST") {
+    // Create a new post
+    const post = await prisma.post.create({
+      title: req.body.title,
+      content: req.body.content,
+    });
+
+    res.json(post);
+  } else if (req.method === "PUT") {
+    // Update an existing post
+    const post = await prisma.post.update({
+      where: { id: postId },
+      data: {
+        title: req.body.title,
+        content: req.body.content,
+      },
+    });
+
+    res.json(post);
+  } else if (req.method === "DELETE") {
+    // Delete an existing post
+    await prisma.post.delete({
+      where: { id: postId },
+    });
+
+    res.status(204).end();
+  } else {
+    // Throw an error if the request method is not supported
+    throw new Error(`The HTTP ${req.method} method is not supported at this route.`);
+  }
+}
+
+This endpoint can be accessed by sending the appropriate HTTP request to the /api/posts/[id] endpoint. 
+For example, to create a new post, you would send a POST request with the title and content of the new post 
+in the request body. 
+To update an existing post, you would send a PUT request with the id of the post 
+and the updated title and content in the request body. 
+To delete an existing post, you would send a DELETE request with the id of the post in the request body.
+
+You can use this same approach to create API endpoints for any type of operation 
+that you need to perform on your database.
