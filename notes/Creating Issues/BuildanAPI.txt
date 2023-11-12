@@ -58,6 +58,8 @@ In a broader sense, building an API basically means setting up endpoints to anot
 An API (application programming interface) is a set of rules and specifications 
 that define how software components should interact with each other. 
 It provides a way for two pieces of software to communicate with each other and exchange data.
+
+
 in a nextjs project, i am setting up mysql and prisma, now it's time to "build an API" what does that mean?
 
 Building an API in a Next.js project with MySQL and Prisma means creating endpoints 
@@ -73,7 +75,8 @@ Create a Prisma schema that defines the tables and relationships in your databas
 Generate a Prisma Client that provides an interface to your database.
 Create API endpoints that use the Prisma Client to interact with your database.
 Deploy your Next.js application to a production environment.
-Once your API is deployed, you can access it from external applications using HTTP requests. For example, you could use your API to build a mobile app, a web app, or a backend system for another application.
+Once your API is deployed, you can access it from external applications using HTTP requests. 
+For example, you could use your API to build a mobile app, a web app, or a backend system for another application.
 
 Here is a simple example of an API endpoint that uses Prisma to read data from a database:
 JavaScript

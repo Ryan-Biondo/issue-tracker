@@ -1,0 +1,19 @@
+We are going to build our 'new issue' page with Radix UI 'themes'
+- popular component library
+radix-ui.com
+radix has 2 flavors 
+radix themes - fully styled components
+radix primitives - unstyled components, only behavior
+
+https://www.radix-ui.com/themes/docs/overview/getting-started
+npm install @radix-ui/themes
+
+in our root layout or wherever
+import '@radix-ui/themes/styles.css';
+import { Theme } from '@radix-ui/themes';
+and wrap everything inside the body element with <Theme></Theme>
+
+to verify this is setup properly
+ - create a button in the issues page
+ import { Button } from '@radix-ui/themes';
+should create a styled button
