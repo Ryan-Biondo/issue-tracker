@@ -1,0 +1,19 @@
+Can pick from components on Radix ui
+use the Text Field component - because we dont need the icon we can just take the root
+create a new folder inside issues called new, with a page.tsx inside
+
+rafce and name to NewIssuePage
+add the text field component, rename placeholder
+
+Back in the IssuesPage, add a Link from next/link inside the button
+set it's href to /issues/new and label to New Issue
+
+*FORMS require user interaction, so textfield needs use client
+
+set max-w-xl for Field parent
+set p-5 on main html
+
+find TextArea component and add it after text field with a new placeholder
+add space-y-3 to separate fields
+
+add a button Submit New Issue
