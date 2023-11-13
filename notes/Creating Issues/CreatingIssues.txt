@@ -1,0 +1,23 @@
+we can easily customize out theme in Radix
+use the Theme Panel Component
+can use it to preview colors, then copy the theme code
+remove themepanel when finished
+
+earlier we set our font to inter, but radix changed it to default
+https://www.radix-ui.com/themes/docs/theme/typography#with-nextfont
+basically it needs us to set a custom variable to our old font
+variable: '--font-inter'
+on wherever we set our font
+className={inter.variable}
+
+modify/create a theme-config.css
+.radix-themes {
+  --default-font-family: var(--font-inter);
+}
+import the file in our root layout
+
+NOTE: Font change didn't work after troubleshooting in 2.0 or older
+order of imports didnt help
+*We are not reading the variable some how 
+- we are still using var(--default-font-family) from .radix-themes
+- look for fix later
