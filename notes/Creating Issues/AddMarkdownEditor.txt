@@ -1,0 +1,13 @@
+Replace the text area component with a markdown editor
+
+react-simplemde-editor
+- react component wrapper around easymde
+- popular js library for rendering a markdown editor (mde)
+
+https://www.npmjs.com/package/react-simplemde-editor#install
+npm install --save react-simplemde-editor easymde
+add the imports and the compopnent in our page.tsx for new issues
+import SimpleMDE from "react-simplemde-editor";
+import "easymde/dist/easymde.min.css";
+
+replace text area component with <SimpleMDE />;

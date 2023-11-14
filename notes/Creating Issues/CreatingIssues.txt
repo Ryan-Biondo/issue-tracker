@@ -20,4 +20,5 @@ NOTE: Font change didn't work after troubleshooting in 2.0 or older
 order of imports didnt help
 *We are not reading the variable some how 
 - we are still using var(--default-font-family) from .radix-themes
+- when we disable --default-font-family it reverts to inter
 - look for fix later
