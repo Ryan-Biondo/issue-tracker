@@ -1,0 +1,73 @@
+Handling Form Submission
+Now that the form is built we can handle the Submission
+use react hook form
+- popular library for easily 
+ -handling form submission, 
+ -track changes in the form,
+ -display validation errors
+
+ npm i react-hook-form@7.46.1
+
+ go to new issue NewIssuePage
+ import the hook  {useForm} from 'react-hook-form'
+define an interface that defines -the shape of the form it specifies
+  -what fields we have
+  -what are the types
+call it IssueForm and add title and description both as type string
+
+call the hook in the component
+ - in angle brackets specify shape of form (call our interface)
+ - call the function and get an object (const)
+ - destructure it to grab the {register} function
+  - registers input fields with rhf so it can keep track
+  can clg (register('title')) which shows the object returned
+  - these are the props that we should apply to an input field so rhf can keep track
+
+Inside the textfield.input we can call the register function
+{...register('title')}
+the register funtion returns an object with 4 properties 
+so use the spread operator to add the properties as props
+
+SimpleMDE doesnt support additional props using ...
+- to fix we need the controller component from rhf
+  import {Controller} from rhf
+  -instead of rendering the SimpleMDE component we need the controller
+  <Controller
+    name='description'
+    control={control} -set to the control object that we can get from the useForm hook
+                        -destructure to grab the control object as well
+    render={({field}) => <SimpleMDE placeholder="description" {...field}/>}
+  />
+        - set to a function for rendering an input field
+        - give the function an argument and destructure it to grab the field property
+        this field has the same properties as the object we clg'd before
+        inside we can add braces and spread the field object
+
+We registered our input fields with rhf, now we need to Handle form submission
+grab another function from the object destructured called handleSubmit
+change div to form
+set onSubmit and call handle Submit
+-give it a function that passes on submit
+{handleSubmit((data) => console.log(data))}
+ - we want to display the data so add it as an argument
+ - data will represent the data that we pass from the form
+ - if clg works we need to change it to send to the API
+    - use Axios (or fetch)
+    npm i axios@1.5.0
+    import axios from 'axios'
+    replace clg with
+    {
+    await axios.post('/api/issues', data) - url and data
+    }
+    -this returns a promise so we have to await it and make the function async
+
+Redirect the user to the issues page
+- use the router hook in Next.js
+call useRouter from next/navigation - works with app router
+    *NOT from /router, old
+get a router object
+const router = useRouter();
+After the issue is saved, call router.push and send the user to the issue page
+router.push('/issues')
+- test and make sure redirect works
+- check database that the data is there under issues
