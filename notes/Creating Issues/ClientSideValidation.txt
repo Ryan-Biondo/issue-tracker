@@ -1,0 +1,42 @@
+Creating client side validation
+go the the route.ts in our api
+reuse our validation schema on our form
+Right now we only have unexpected errors to show, this will help the user properly fill the form
+We have to move createIssueSchema to a separate module so we can reuse
+
+vscode let's you refactor and move the object (move to new file)
+ctrl+shift+R
+this creates a file in the same folder and same suffix named what the object was called
+ - and automatically imports code so there are no breaking changes
+ we can move it to the app folder bc we are using it across our app, and rename it
+ tell vscode to fix imports and renaming
+
+to use our schema in our form we have to install a package for rhf
+npm i @hookform/resolvers@3.3.1
+in the new issue page, import {zodResolver} from '@hookform/resolvers/zod'
+when calling the useForm hook, we can pass a configuration object
+set resolver: zodResolver(our-schema)
+and import the schema
+
+Currently we have to keep track of the interface in the schema and the IssueForm interface
+we can generate our interface based on our schema in case of changes
+import {z} from 'zod'
+z.infer<typeof our-schema>;
+this returns a type so store it in a type object and call it IssueForm
+type IssueForm =
+so This will replace our interface, and we have integrated reacthookform with zod
+
+to display validation errors, grab the formState object and add it to the destructured properties
+- represents what we need for the form, has lot's of properties to choose from
+in this case we want the errors property
+so formState: {errors}
+we want to render the error message right under each field
+(import from radixUI for consistency)
+{errors.title && <Text color='red'>{errors.title.message}</Text> }
+{errors.description && <Text color='red'>{errors.description.message}</Text> }
+Text components are block level so they will be styled wrong
+can use  the as property to set it to a paragraph
+as='p'
+Should show errors under each area as needed
+
+
