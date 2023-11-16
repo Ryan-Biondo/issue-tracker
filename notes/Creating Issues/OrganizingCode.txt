@@ -1,0 +1,29 @@
+Some argue that we shouldnt use inline functions in the middle of our markup
+ - make things unneccisarily complicated to read
+ - on other hand have to jump around to read code
+ - if the inline function is 1-2 lines it's fine as an inline
+ - more complex inline functs should be encapsulated
+
+Ex. our code in onSubmit from our form is 7 lines long
+ instead we can move the logic to a variable
+ onSubmit = handleSubmit(async (data) => {
+          try {
+            setSubmitting(true);
+            await axios.post('/api/issues', data);
+            router.push('/issues');
+          } catch (error) {
+            setSubmitting(false);
+            setError('An unexpected error occured.');
+          }
+})
+then we can just say onSubmit = {onSubmit}
+
+Using axios or making http calls in our component can violate the separation of concerns principle
+* Separate a program into distinct modules each having a separate concern
+  - if concerns are well separated there are more opportunities for code reuse
+
+HOWEVER, this project will not reuse the issue creating logic, so it is unnessesary encapsulation
+Software engineering is not black and white
+there is no onesize fits all - don't always listen to strict advice
+every app is different
+Dont apply other people's solutions as silver bullets for every project
