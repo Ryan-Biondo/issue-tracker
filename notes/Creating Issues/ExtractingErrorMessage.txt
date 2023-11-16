@@ -1,0 +1,31 @@
+Currently we repeat the styling for our error wherever we need it
+we can extract this markup and reuse it
+
+add a new folder in app called components
+make a new file called ErrorMessage.tsx
+
+rafce
+typically we would define an interface
+    - with a property of children of type ReactNode
+    - add props to the argument
+    - structure to grab children
+
+*INSTEAD we can use a special interface already defined in react called PropsWithChildren
+    - import from react
+    - no need for interface
+
+return (
+    <Text color="red" as="p">
+            {children}
+    </Text>
+)
+
+Then we can replace out Text component with our custom ErrorMessage Component
+
+Can also add the if error exists logic inside here so we dont repeat that either
+if (!children) return null
+
+we still pass our original variables which pass down from children
+now title may be undefined so we can pass in the compiler by using optional chaining
+
+also edit the description component
