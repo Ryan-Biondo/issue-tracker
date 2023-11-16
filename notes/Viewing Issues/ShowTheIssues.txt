@@ -1,0 +1,40 @@
+To view our issues on the issue page, we need to use prisma to access our db
+
+in the IssuesPage component
+import prisma from our client
+go to issue and call findMany()
+then await the call to get the issues
+const issues = prisma.issue.findMany()
+make the component async
+
+Next we need to add a table for the data below the button
+RadixUI has a table component
+https://www.radix-ui.com/themes/docs/components/table
+create a Table.Root, inside we need a header and body
+in the header create a row with 3 column header cells
+issue, status, created
+
+then in the body, we map our issues
+map each issue to a table row
+First, set the key to issue.id
+inside each row create 3 cells: issue.title issue.status issue.createdAt.toDateString()
+{issues.map(issue => (
+    <Table.Row key={issue.id}></Table.Row>
+) )}
+
+Table.Root has a prop called variant
+if we set variant="surface" get a nice grey heading and round borders
+
+button is too close to table so give it some bottom margin
+wrap it in a div mb-5
+
+on mobile the text looks squished and we want to hide the extra column data
+so in column header cell use tailwind
+hidden by default and shows on medium devices
+hidden is equivilent to display: none
+add a className='hidden md:table-cell'
+
+Then add status under the title only for mobile
+add a div inside title cell
+{issue.status}
+className='block md:hidden'
