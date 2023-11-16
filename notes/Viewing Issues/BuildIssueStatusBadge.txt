@@ -1,0 +1,52 @@
+We want to replace the Status text with a prettier badge component
+https://www.radix-ui.com/themes/docs/components/badge
+
+new file in components folder called IssueStatusBadge
+ - add components in this folder that are used across our app
+ - in this case the isses and issue details
+
+rafce - create a react component - react component utilizing an arrow function
+this component should recieve the status of a component issue as a prop
+define the Props interface and give it a property called Status
+type - Status from prisma client
+everytime we create or modify our models and create a migration, 
+Prisma CLI auto gens the type based on our nodels
+So Status will be a type that hold the values we set in our model OPEN IN_PROGRESS and CLOSED
+pass the Props as an argument and destructure it to grab the status property
+
+*When working with props with a single property, it's easy to destructure Props type as well
+  - totaly fine to define the interface explicitly
+  - dont need the interface at all when it's defined all in the argument
+
+return a Badge component
+<Badge>
+We could use if statements to sheck if status === OPEN
+return open badge
+
+A better solution would be to use a map object
+outside component define a constant called statusMap of type Record
+the reason we define this mapping outside the component is because we dont need it every time we want to render a component
+ - we define the mapping once and once rendered, we only should be using the logic from the component
+
+Record - utility type in typescript that allows us to define key value pairs
+    - for situations where keys and values have a particular type
+in angle brackets we should specify the type of our keys and values
+<string, number> key-string value-number
+in our case the key - Status
+     value - {label: string, color: string}
+
+Now with this annotation, we can set this constant to an object with these properties
+ctrl+space here we can see the possible keys
+OPEN: { label 'Open', color: 'red' }
+
+so back in the Badge Component, render the label of status
+statusMap and pick the key value pair with the status and access the label property
+{statusMap[status].label}
+
+add the color prop to Badge and set it to {statusMap[status].color}
+BUT color only accepts specific strings like red blue green, not strings in general
+so we replace string with the 3 strings we use 'red' | 'violet' | 'green'
+
+Badge Component is now set up, just use it on the issues page now
+replace {issue.status} with <IssueStatusBadge status={issue.status} />
+can test by changing status in out database through workbench
