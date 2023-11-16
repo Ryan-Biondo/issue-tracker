@@ -1,0 +1,40 @@
+To improve UX add a spinner to the button when submitting
+tailwind elements spinner
+https://tw-elements.com/docs/standard/components/spinners/
+
+<div
+  class="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]"
+  role="status">
+  <span
+    class="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]"
+    >Loading...</span
+  >
+</div>
+
+ctrl+d to select next
+ctrl+shift+l select all occurences
+
+Create a Spinner.tsx in the components folder
+rename class to className
+add spinner to button
+change height and width to 4 to shrink
+could change size but that would be over kill
+can edit thickness by changing size of the border
+
+*FOCUS ON EXISTING PROBLEMS AS OPPOSED TO PROBLEMS THAT MAY NEVER HAPPEN
+
+We only want to show while we are submitting 
+ - create a state variable in the page
+   - isSubmitting, setSubmitting
+ -     try {
+            setSubmitting(true); - (trying,/submitting)
+            ...
+          } catch (error) {
+            setSubmitting(false); - (failed)
+            ...
+          }
+ - then we can say {isSubmitting && <Spinner />}
+
+It is good practice to disable the submit botton while submitting so the user doesnt submit twice
+*especially important with money
+so we can add to the Button properties disabled={isSubmitting}
