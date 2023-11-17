@@ -1,0 +1,21 @@
+The markdown editor we have only renders the markup as plain text currently
+if we test with a heading italics bullets, we dont get proper styles in the detail page
+
+we need to install a package for previewing markdown content
+npm i react-markdown@8.0.7
+import ReactMarkdown
+replace the p in the Car with a ReactMarkdown
+
+this uses classes like h1, and li
+- unstyled by default in tailwind
+- we need to install a plugin for Tailwind called Typography
+https://tailwindcss.com/docs/typography-plugin
+npm install -D @tailwindcss/typography
+install as a development dependency
+import the plugin in the tailwind config
+ plugins: [
+    require('@tailwindcss/typography')]
+
+To use this we need to add the prose class to the containing element
+give Card className='prose'
+and add a mt='4' bc it's close to the top
