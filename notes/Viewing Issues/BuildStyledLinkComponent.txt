@@ -1,0 +1,39 @@
+ currently it's not clear that the title of the issues are clickable
+ they look identical to Creation dates, unless we hover over them
+ let's improve the styling of our links
+
+ go to the list of issues
+ one option is to give it a couple of Tailwind classes
+ text-violet-600 hover:underline
+ this approach is not ideal bc we have to apply the same classes to every link
+ we could create a CSS class that reuses in every link
+ but if we update our  Radix theme, we'll need to also come back and change the color of the links
+
+a better approach is to create a link component to reuse from Radix
+ colors based on the accent of the theme
+https://www.radix-ui.com/themes/docs/components/link
+ replace the link from next JS with the one from Radix - replace imports
+* but Radix UI doesn't  provide us client side navigation
+- so we need to create a custom component that combines the link from next and Radix UI
+
+ add a new component in the components folder called link.tsx
+ import the link component from next/link
+ we can rename link from next navigation to NextLink for clarity
+ can do the same from radix-ui/themes
+{Link as RadixLink}
+
+ the link component needs a few props href and children
+ Define an interface called props and give it two properties
+ href of type string
+Children of type string
+pass the props and destructure href and children right away as type props
+
+ return to next link so we get client side navigation
+Set href to {href}
+ then at the radix link inside for styling
+add the label {children} inside the tags
+
+ back to the issues page we can replace link import with our custom one
+ we need two props in order for next to pass the information properly
+passHref legacyBehavior
+https://nextjs.org/docs/pages/api-reference/components/link
