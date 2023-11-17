@@ -1,0 +1,26 @@
+create additional loading skeletons
+ currently we only see a loading message
+ now that we have styled the detail page - set the loading page to look just like it
+
+ copy and paste our code in the loading file
+ import the missing import statements
+ replace the div with a box component from Radix UI for consistency (renders a div)
+
+ replace heading with a skeleton
+https://www.npmjs.com/package/react-loading-skeleton
+ grab the import statements for the component and CSS
+ replace the issue status badge with a skeleton
+ give it a custom width of <Skeleton /> to make it feel like the badge
+ replace the date with a  skeleton with 8rem
+ replace the markdown with a skeleton with count={3} to create 3
+ apply a max-w-xl to the Box
+Alt+shift+o to organize imports
+
+Apply a delay from delay  to test delay(2000)
+
+ we need to do the same thing for the  new issue page
+ import skeleton and the CSS file
+  create a box and apply a max-w-xl
+ Inside the Box we need two skeletons one for title and one for description
+ to make the second skeleton thicker we can set its height to 20rem
+* we get an error but we will return to that when we disable server-side rendering
