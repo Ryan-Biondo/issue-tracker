@@ -2,7 +2,7 @@ import { Box, Card, Flex } from '@radix-ui/themes';
 import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
 
-const LoadingNewIssuePage = () => {
+const LoadingDetailsIssuePage = () => {
   return (
     <Box className="max-w-xl">
       <Skeleton />
@@ -17,4 +17,4 @@ const LoadingNewIssuePage = () => {
   );
 };
 
-export default LoadingNewIssuePage;
+export default LoadingDetailsIssuePage;

@@ -1,0 +1,17 @@
+  we have an error from simple MDE
+simple mde is a client side component because we have user interaction
+ if we comment out the markdown editor we can see the error go away
+
+ all components in xjs are initially rendered on the server
+ Navigator is a browser API, not available on the server - why we get the error
+ it is necessary to disable SSR as part of lazy loading client side components
+
+ remove the import to simple mde
+ instead we import the dynamic function from next/dynamic
+ then we dynamically load the component - this is called lazy loading
+ create a constant calls the same thing as our component we're trying to dynamically render
+ in this case simple mde 
+ assign it to a dynamic function and give it a loader function
+ import the react simple mde editor
+ an configureation object will be the second argument of the dynamic function
+ set SSR to false -  tells next JS not to render this component on the server
