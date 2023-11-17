@@ -1,0 +1,22 @@
+Style the Issue Detail page
+instead of rendering the title as a paragraph render as heading
+h1 or Heading (radixui)
+
+move status under title
+change p to our Badge component
+- status : issue.status
+
+move date under the badge
+import Text from radixui instead of p
+wrap the badge and date  in a flex div
+or use Flex from radix
+*Radix can help code look cleaner without using alot of tailwind
+
+give it a className=space-x-3 or
+<Flex gap='3'>
+All radix components have padding and margin as props
+- can add my="2" only accepts strings
+
+put description inside a card component from Radix
+<Card>
+
