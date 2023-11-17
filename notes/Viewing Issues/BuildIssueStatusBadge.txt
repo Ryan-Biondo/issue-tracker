@@ -25,8 +25,10 @@ return open badge
 
 A better solution would be to use a map object
 outside component define a constant called statusMap of type Record
-the reason we define this mapping outside the component is because we dont need it every time we want to render a component
- - we define the mapping once and once rendered, we only should be using the logic from the component
+the reason we define this mapping outside the component is bc 
+ - we dont need it every time we want to render a component
+ - we define the mapping once and once rendered
+ - we only should be using the logic from the component
 
 Record - utility type in typescript that allows us to define key value pairs
     - for situations where keys and values have a particular type
@@ -49,4 +51,4 @@ so we replace string with the 3 strings we use 'red' | 'violet' | 'green'
 
 Badge Component is now set up, just use it on the issues page now
 replace {issue.status} with <IssueStatusBadge status={issue.status} />
-can test by changing status in out database through workbench
+can test by changing status in out database through MySQL workbench

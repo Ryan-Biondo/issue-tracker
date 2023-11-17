@@ -1,0 +1,38 @@
+While page is loading we want placeholder loading skeletons for the issues
+ - Add a loading.tsx file next to our page.tsx for issues
+ - will render this until page is rendered
+
+Create a react component
+can rename it to LoadingIssuesPage
+for test just return Loading...
+
+To simulate a slow server, install delay
+npm i delay
+on the page.tsx, import delay
+call delay and give it a value of something like 2000ms
+this returns a promise so we await it 
+    - this is all we have to do to set a delay before returning the page component
+    - should show loading... for a moment
+
+To replace the message with skeletons we can use react-loading-skeleton
+npm i react-loading-skeleton@3.3.1
+then copy and paste our table into the loading component
+crtl+. to grab imports
+
+create an array of simulated issues
+const issues = [1, 2, 3, 4, 5]
+just to render 5 rows of skeletons
+then change issue.id target to just issue
+
+instead of issue.title and badges and we are going to load a skeleton
+https://www.npmjs.com/package/react-loading-skeleton
+we have to import Skeleton and the coresponding css file
+<Skeleton />
+
+The style is good but we have a button that isnt in our loading
+instead of repasting that code, we can separate it and reuse it in both
+because its only used on the 2 pages, we can put in the issues folder
+IssueActions.tsx and create a react component
+move the button and imports there
+add the IssueActions component in the page and loading files
+will have to wrap loading in a div (or fragment)
