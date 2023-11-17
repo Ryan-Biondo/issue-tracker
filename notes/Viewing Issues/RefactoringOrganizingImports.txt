@@ -1,0 +1,30 @@
+techniques for cleaning up code
+ clean up tests like delays and command logs
+Alt+shift+o for organize imports
+
+ in the issues page
+ we can combine these two statements into a single line
+import IssueStatusBadge from '../components/IssueStatusBadge';
+import Link from '../components/Link';
+
+ go into the components folder and create a new index file 
+- for exporting components in the folder
+ index.ts
+ inside, import the components
+ and Export them individually in curly braces as named exports 
+now we can import everything from index @/app/components
+ because it's named index, we don't have to write the path
+
+ instead of importing and exporting individually
+ we can export default as the named component from its location all in one line
+export { default as Link } from’./Link’;
+
+ go to the Loading file of the issue detail page
+ every time we import the skeletons, we need two lines, 
+we can reduce that into a separate module
+ back in the components folder add a skeleton.tsx
+ give it the two Imports and export default 
+ then import it like we do the rest in our index
+
+ now we can load the skeleton like everything else in the components
+ replace the Imports in the other two loading pages and organize Imports
