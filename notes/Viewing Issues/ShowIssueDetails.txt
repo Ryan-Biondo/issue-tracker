@@ -1,0 +1,47 @@
+Get the issues from the db and show it’s details
+in the issues folder create a new folder with the id parameter
+    - the end point is dynamic based on the id from the route
+Create a page.tsx with a react component
+call it IssueDetailPage
+
+grab the id param from the route
+    - create an interface Props with a params of type id of type string
+add the props, can destructure Props to grab {params} : Props
+
+Use prisma to fetch an issue from the db in the component
+import prisma from prisma/client
+go to issue, and call findUnique()
+pass an object set to where: 
+set it to an object with property {id: }
+    - set to parseInt(params.id)
+    await the call to get a constant called issue
+    make the component async
+
+if no issue found, we should redirect the user to the not found page
+if(!issue) call the noFound function in the next/navigation package
+noFound() -only have to call it no need to return, doesnt return any values, return type is never
+
+otherwise we render the details of the issue
+add <p>s for issue.title desc status createdAt.toDateString()
+
+need a link to details, so back to the issues page
+wrap the issue.tites in Links from nextjs
+set href prop - use backticks to use template literals
+{`/issues/${issue.id}`}
+
+the loading file we made applies to ALL routes that start with /issues
+so we have to specify loading pages for the others
+create a LoadingDetailIssuePage for now with loading...
+also create one for the new segment
+LoadingNewIssuePage for now just says loading...
+
+what if we pass an invalid id? - should get 404 (within layout)
+can give it a generic message, or validate if the param is a #
+in the IssueDetailPage
+if (typeof params.id !== 'number') notFound()
+whether this is necessary is totally debatable. 
+users shouldnt even be accessing endpoints like that
+*notFound automatically reverts user to their default theme preference if not set
+ - my app is only in light mode but switched to dark on the 404
+
+
