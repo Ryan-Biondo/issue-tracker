@@ -1,0 +1,67 @@
+ now that the edit page is ready we can update an issue
+ we have to build an API endpoint like when we created a new data point in our database 
+now we will access it
+
+ go to api/issues and add a new folder and add the [id] a parameter
+ add a route file
+ export a patch/PUT function  for updating the issue
+ put function replaces an object
+ patch function updates one or more properties
+ in this case we only want to update the properties title and description
+
+ we export a function called PATCH 
+ give it a request of type NextRequest
+ the second  argument is an object for accessing root parameters
+ exactly the same way we would access our root parameters in the components
+ Define an interface called props and add params
+ Annotate it with its type - params is an object with an ID property which is a string
+Params: {params: {id: string}}
+
+ we can write this in line destructure props and grab the params property
+ we no longer need the interface with that
+Export function PATCH(
+ Request: NextRequest,
+{ params}: {params: {id: string}}){}
+
+ first we have to call request.json to read the body of the request
+ Await it and store the body here 
+ make the function async
+
+ validate the body
+ look at our validation schemas
+  rename it to issue schema because it's more General now
+
+ back in the route file use the issue schema and call Safe parse
+give it to the body of the request
+issue.safeParse(body)
+ store the result in a validation object
+
+ if validation is not successful return a  next response, return Json object
+ here we call a validation.error.errors  to return all error objects
+ or format them into an array of strings validation.error.format()
+ as the second argument said the status to 400
+NextResponse.json(validation.error.format(), {status: 400}
+
+ otherwise if it's valid,  we need to find the issue with the given ID
+ call prisma.issue.findunique
+ give it an object and define where
+ give it an object with ID  set to parseint of params.id
+ await the call to get the issue
+
+ if no issue, then return a NextResponse.json()
+ here we can add an error and say invalid issue
+ as the second argument set the status to 404
+
+ otherwise update the issue 
+We call prisma.issue.update  pass an object and specify where
+ set it to an object which we want to update so we set ID to issue.id
+ provide the data which is an object with title set to body.title 
+and a description set to body.description
+ await the call and get the updated issue
+
+ return it to the client
+NextRespose.json(updatedIssue);
+ we can test and Postman  by sending a patch request to an API issue/id
+ with an object with title and description
+ 
+
