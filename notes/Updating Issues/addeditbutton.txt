@@ -1,0 +1,46 @@
+Implement the future to update the issues
+ first we need an edit button
+ so we need to add a grid layout to the issue detail page
+ position the button in a second column
+ we can add more buttons in this column
+ the focus of this first chunk will be only to create the button and style the page
+
+ in The Details page replace div with the grid from Radix UI
+ set the columns prop to “2” -  must pass a string value
+
+ we need two children for the grid - one for each column
+ wrap everything inside the grid inside a box from Radix UI
+ then we can create a new box
+ add a Button from radix inside with ‘edit issue’ label
+
+ once we have the button, if we check responsiveness it looks squished
+ so on mobile devices we want a single column
+ under Radix UI themes, look at breakpoints
+https://www.radix-ui.com/themes/docs/theme/breakpoints
+ there are sizes here, and instead of passing a number we can pass one of these sizes
+columns={{ initial: “1”, md: “2” }}
+
+ now we have a responsive layout but currently the boxes are so close to each other 
+we can apply a gap in the grid to separate the boxes
+gap=”5”
+
+ in order to add an icon to the button we can use Radix UI
+But we have to install another package
+npm i @radix-ui/react-icons
+https://www.radix-ui.com/icons
+ import a pencil2icon from Radix UI/icons
+ add the icon in front of the edit issue label
+
+ wrap our label in a link from next/link
+ given an href that's an object template literal
+/issues/${issue.id}/edit
+
+
+
+
+
+
+
+
+
+
