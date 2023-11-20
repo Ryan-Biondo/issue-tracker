@@ -1,0 +1,15 @@
+ now that the API is built, we're ready to update an issue
+ go to the issue form
+ first check if there's an issue or not which we've passed to this component
+ in the try block, after setting submitting to true
+If (issue) we want to send a patch request instead of a post request
+ call axios.patch the URL is /api/issues/ and concatenate issue.id
+ after , include the data that is in the form of data in the body of the request
+ Await it 
+ otherwise if we don't have an issue send a post request - else
+
+ the button label needs to be set in dynamically 
+ if we have an issue set it to update issue otherwise submit new issue
+ react should provide a white space for us
+ test the implementation
+ we may not see the update due to a caching issue, this can be fixed with a refresh

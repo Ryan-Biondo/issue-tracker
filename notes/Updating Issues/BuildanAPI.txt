@@ -40,7 +40,7 @@ issue.safeParse(body)
  here we call a validation.error.errors  to return all error objects
  or format them into an array of strings validation.error.format()
  as the second argument said the status to 400
-NextResponse.json(validation.error.format(), {status: 400}
+NextResponse.json(validation.error.format(), {status: 400})
 
  otherwise if it's valid,  we need to find the issue with the given ID
  call prisma.issue.findunique
