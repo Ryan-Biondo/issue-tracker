@@ -1,0 +1,44 @@
+Understanding Caching
+ in next JS we have three types of cache or three Cache layers
+
+ the first layer is data cache
+ - for when we fetch data from external data sources using the fetch API
+-  whenever we fetch data  next JS stores the result - doesnt check the network again
+-  permanent until we redeploy
+ if we want to disable that data cache we pass an object as the second argument to the fetch function {cache: ‘no-store’}
+ or we can set next to revalidate every so often
+{next: {revalidate: 3600}}
+* this doesn't apply to our app because we don't use the fetch API
+
+ full route cache or cache on the server
+ used to store the output of statically rendered routes
+ in nextjs there is static (at build time) and dynamic rendering (at request time)
+ routes that don't have a parameter are considered static routes by default
+ when we build we get two symbols
+ a Lambda which refers to routes that are rendered at runtime dynamically
+ and a circle which refers to routes that are rendered statically
+ so for example our issues page route is static, and when we update an issue we will not see it show on the issues page until we  redeploy the application
+ we don't want cacheing on that page so 
+https://nextjs.org/docs/app/api-reference/file-conventions/route-segment-config
+ here we can find various options for configuring the route
+ these are constants  that we export from our Pages or layouts
+ most of the time we use Dynamic and revalidate
+ in the issues page export a constant call dynamic  and set it to force dynamic
+export const dynamic = 'force-dynamic';
+ tells next to opt out of static rendering on this page
+ rebuild the application now the issues page will be rendered dynamically
+ if we test with a new issue, we will have to refresh to see it because it's still being held by the client cache
+ we can also use the revalidate option set to 0 which is the same thing as force-dynamic
+export const revalidate = 0;
+ we are telling it to revalidate every zero seconds we can also set it to a higher number of seconds
+
+Router Cache (Client-side cache)
+ stores the payload of pages in the browser memory
+ next to us automatically stores the pages as the user navigates to them for faster experience
+ lasts for the session and resets on a Reload
+ the pages stored in the client cache get automatic invalidation depending on how they are rendered
+ 5 minutes for statically rendered routes  30 seconds for dynamic routes
+ we can also Force the router to refetch the page
+ go to issue form,  after sending the user to the issue page call router.refresh
+ router.refresh();
+ we force the router to refresh the content of this page
