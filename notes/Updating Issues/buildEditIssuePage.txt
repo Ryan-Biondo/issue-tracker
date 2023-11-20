@@ -1,0 +1,45 @@
+ build the edit page
+ in the ID folder create a new folder called edit
+ at a page file  and create a react component called edit issue page
+ this Page is identical to the new issue page 
+
+so grab the new issue page and we will put it into a reusable component
+In the issue folder because it’s only used here
+ create a components folder in the issues folder for components for the issues section only
+ create a new file called issueform.tsx and paste the code
+ earlier we defined a type within the code called issue form, rename it to issue form data
+ rename new issue page to issue form and where we refer to the schema
+
+ we can prefix the component folder name with an _ so that it is not a part of the routing system
+ this is a good technique for separating implementation details from our routing folders
+
+ go to the new issue page and reuse the component
+ rafce a new component and call it new issue page
+ return an issue form 
+- test if it works if so build the edit page
+
+go to the page and import issue form
+ to use this form, we have to fetch the given issue and populate the form with that issue
+ add an interface for capturing route parameters
+ add the params property as an object with id of type string
+ add the props to the arrow function
+
+ just like the issue detail page, we have to use Prisma to fetch the issue with the given ID
+Call prisma.issue.findUnique({})
+ set where to an object with ID set to parse int of  params.id
+ await the call to get an issue constant and make the function async
+
+ if the issue doesn't exist we should redirect the user to the not found page
+if (!issue) notFound()  from next navigation
+ otherwise return the issue form and pass the prop issue
+
+pass issue to the component
+ back to the issue form, create an interface Props
+ with an issue of type issue from Prisma, import it
+ the issue is optional because we only need it for the edit page
+ this is one line and we can Define it in the issue form argument in one line
+
+ if we do have an issue, we need to use it to populate the form fields
+ in the text field for the title, add a default value prop of issue?.title
+ in the controller component, at a default value of issue?.description
+
