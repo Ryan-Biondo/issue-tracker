@@ -1,0 +1,28 @@
+improve the loading experience
+ the first time we load our  new issues page it uses our loading skeleton, 
+but if we refresh or navigate back to it,  it loads the pieces as they come in
+ this happens because we load the editor dynamically - lazy loading
+ to solve this we need to load the entire form dynamically so they appear together
+
+ in our new issues page,  we're going to take away our import from the components statically
+ we're going to import Dynamic from next/dynamic
+ create a constant called issue form called dynamic
+ first argument pass a loader function, call import, go to the root @/app/issues/components/IssueForm
+ then set SSR to false for our editor
+
+ now we don't need to render simple mde dynamically in the issue form
+ so remove the dynamic import and import simple mde
+ to make sure that the skeletons load in properly, we add a loading property to loading …
+Test
+
+ we're going to move our loading file to a separate reusable component in the _components folder
+ create a new file called issue form skeleton
+ paste the skeleton logic and get the import for our skeleton
+ import it and Export it in our loading file
+export { default as IssueFormSkeleton } from '../_components/IssueFormSkeleton';
+ now instead of rendering a paragraph We can render the component
+
+ we need the same loading Skeleton on our edit issue page
+ currently there is no loading file set and it still using the loading file from its parent
+ we get an error because we are not loading this component dynamically
+ remove the static import for our form and create a dynamic import
