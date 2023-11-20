@@ -1,0 +1,50 @@
+single responsibility principle (SRP)
+ our software entities should have a single responsibility
+ if you're building a function, class hook, component, page -  should all have one responsibility
+ code will be much cleaner this way
+ the software but will be easier to maintain and extend
+
+ pages should have a single responsibility -  layout
+“Lay the components out”
+ specifically for our Details page it should only be concerned with the layout of the grid
+ the details of an issue should be moved into a separate component
+ same with our edit button logic -neither are the responsibility of the page
+
+In the [id] folder - add a new file called EditIssueButton
+ it is not a reusable component across the whole page it is only used here
+ move the edit button here and add all missing Imports
+ manually move the import of the pencil icon
+
+ this component needs to know the id of the issue to edit
+ we can give it as a prop
+ destructure the prop as issueId
+ in this case we don't need to define a separate interface
+ we have a single property
+ Define it in line as issueID of type number
+ now replace issue.id with issueId
+ add the edit issue button in the detail page and import it
+ pass the issueId={issue.id}
+
+ create a new component called the issue details
+ move everything from the first box here, add all missing Imports
+ may have to manually move text
+ wrap everything in a fragment
+
+2 options:  fetch the issue in the component or in the page
+ if this is the only place where we need the issue it makes more sense to fetch it in the component
+ in some situations you may want to fetch it in the page and pass it to various components as props
+
+ add the issue as a prop in the component
+Destructure it, grab the issue property
+ and we can Define it entirely in line and do structure props as issue of type Issue
+ this issue type is defined in our Prisma client when we created the model
+ every time we do a migration Prisma generates these types based on our models
+
+Organize Imports
+ import the issue details component
+ set the prop to the issue that we fetch on the page
+issue={issue}
+Alt+shift+o organize imports
+
+ now whenever there needs to be an edit 
+ there's a clear distinction of where to work on and it's not connected to everything else at once
