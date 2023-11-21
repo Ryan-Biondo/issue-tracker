@@ -1,0 +1,26 @@
+ add authentication to the project using NextAuth.js
+https://next-auth.js.org/getting-started/example
+npm install next-auth
+https://next-auth.js.org/configuration/initialization#route-handlers-app
+ basically we need to go to the API folder create an auth folder 
+create a catch-all segment and add our route file
+
+/app/api/auth/[...nextauth]/route.ts
+import NextAuth from "next-auth"
+
+const handler = NextAuth({
+ ...
+})
+
+export { handler as GET, handler as POST }
+
+
+ when calling nextauth, we have to provide the configuration object
+ here we have to set a bunch of properties like provider adapters but we will do this incrementally
+ for now let's just set providers to an empty array
+
+ now we go to our EnV file and add two environment variables
+NEXTAUTH_URL="http://localhost:3000"
+NEXTAUTH_SECRET=”long random string”
+Use openssl to create a random string
+openssl rand -base64 32
