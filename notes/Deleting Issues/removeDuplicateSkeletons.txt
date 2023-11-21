@@ -1,0 +1,18 @@
+ because the loading route for new is inside the route for issues which also has a loading page it loads one before the other
+ the loading files should be overriding each other so this could be a bug, so for this instance we will break the hierarchy
+
+ create a new folder in the issues folder called list
+ move all of the root files for issues into list
+ now we have to update the link to the issues page
+
+ update our Link in the nav bar from issues to issues/list
+ find all instances of where we used router.push
+
+ another hierarchy we should flatten is the edit folder inside the ID folder
+ move the edit folder into the ID group folder
+ add a new folder called ID and move the root files there
+ now we don't have any parent loading files
+
+ edit the URL in the edit issue button
+{`/issues/edit/${issueId}`}
+
