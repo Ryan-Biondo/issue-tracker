@@ -1,0 +1,37 @@
+First step in implementing the delete issue feature
+ add a delete button on the issue details page
+
+Id folder go to page create DeleteIssueButton.tsx
+Create a separate component for the whole button
+Similar to how we made the edit issue button
+rafce
+
+ this component should also take the issue ID as a prop
+ can Define it inline grab issueId  from an object where we have issue ID of type number
+ add a button component from Radix UI
+Set color red, label to Delete Issue
+
+ then we can import delete issue button on the page
+ pass the issueId as issue.id
+ buttons are inline in HTML
+Flex container from radix ui (or div flex) direction=’column’ gap=”4”
+
+ currently our button takes up 50% bc we have 2 columns
+ if we change it to five columns, 
+we can allocate 4 to the issue details and 1 to the buttons
+On the detail box set className=’col-span-4’
+The “prose” class we set-  Max width is being set to the components
+	 limits our characters to 65 and improves readability
+Add max-w-full to allow the card to stretch and take available space
+
+ on mobile devices in a single column we will want to take up the full width and not apply the column span
+ if we prefix something in Tailwind with a size it only comes up at that size or larger
+Lg:col-span-4
+ *note, medium in Radix UI is equivalent to large in Tailwind
+
+ on tablets the buttons are really wide, so we can apply a two-column layout there
+ so change our grid columns to small and are box to medium (down 1 size)
+
+ we can use a container component and Radix UI to apply a Max width to our page to avoid growing too large
+ in the layout, inside main we can wrap the children
+*not using the container from postcss
