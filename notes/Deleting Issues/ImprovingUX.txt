@@ -1,0 +1,20 @@
+ improving user experience
+Show a spinner while being deleted
+
+Inside the api/issues/[id] route
+Add a delay of 2000 milliseconds and awaited
+if there is a delay there's two things we need to do, disable the delete button, and add a spinner
+
+ go back to the delete issue button and create a state variable initialized to false
+ call it isDeleting setDeleting
+Try{
+ setDeleting(true)
+ if something goes wrong, and the catch set delete to false
+ 
+ on the delete button, add a disabled property
+disabled={isDeleting}
+ then inside the button label, render a spinner only if is deleting is true
+{isDeleting && <Spinner />}
+
+Remove the delay from route before continuing
+Organize imports
