@@ -1,0 +1,47 @@
+ set up the Google provider so people can log in with Google
+Console.cloud.google.com
+ create a new project called Issue Tracker
+https://next-auth.js.org/providers/google
+Go to credentials
+
+Configure the consent screen - what the user sees 1st time logging in
+Select external
+Your app will start in testing mode and will only be available to users you add to the list of test users.
+Once your app is ready to push to production, you may need to verify your app.
+
+Name the app
+App domain and public privacy policy are only required when moving to production
+Provide dev contact email
+
+Specify the scopes or permissions
+Select email and profile
+Update
+Add yourself as a user
+
+ when done, go to credentials and create a oauth client ID
+Web app
+Name
+http://localhost:3000
+
+Get Authorized redirect URIs from next auth documentation
+For production: https://{YOUR_DOMAIN}/api/auth/callback/google
+For development: http://localhost:3000/api/auth/callback/google
+
+Copy the client ID (represents the app)and the secret
+and store it in .env
+GOOGLE_CLIENT_ID=
+GOOGLE_CLIENT_SECRET="
+
+Model the example from next auth
+import GoogleProvider from "next-auth/providers/google";
+
+providers: [
+  GoogleProvider({
+    clientId: process.env.GOOGLE_CLIENT_ID,
+    clientSecret: process.env.GOOGLE_CLIENT_SECRET
+  })
+]
+
+
+ typescript doesn't know what we have in the EnV file so we have to mark it with an! 
+To tell the compiler yes we do have a value for this env variable
