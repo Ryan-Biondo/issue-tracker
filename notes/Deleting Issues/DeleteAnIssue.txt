@@ -1,0 +1,17 @@
+ the API is ready, so to delete an issue we need to set up the button
+this will be on the confirm deletion button
+
+ handle an onclick event
+ we can use inline functions for small functions 
+but as functions get more complex it's better to move them outside as a variable
+
+ on click will be an arrow function that calls axios.delete and provides the endpoint
+axios.delete(‘/api/issues/’ + issueId) or `/api/issues/${issueId}`
+ await the call and make it async
+
+ next use the next JS router to send the user back to the issues page
+ make sure to import the new one from next/navigation
+Const router = useRouter() to get access to the router hook
+ then after we delete we can say router.push(‘issues’)
+
+Call router.refresh() to update the cache
