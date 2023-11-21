@@ -1,0 +1,20 @@
+Delete
+Build api endpoint
+Go to [id] folder in the route
+Before we did a function for updating (PATCH) now we will do a delete
+
+Copy the params of PATCH change to delete - same parameters
+ we have to fetch the issue with the given ID so call prisma.issue.findunique()
+ pass a where object  set it to ID to parseint of params.id
+ await the call to get the issue constant
+
+ if issue doesn't exist return a 404 error
+If (!issue)
+ Return NextResponse.json({error: ‘Invalid issue’}, {status: 404}
+
+ otherwise we delete, await prisma.issue.delete({
+Where: {id: issue.id }
+
+Return an empty response to the client
+Return NextResponse.json({})
+ test a delete request to the API endpoint in Postman
