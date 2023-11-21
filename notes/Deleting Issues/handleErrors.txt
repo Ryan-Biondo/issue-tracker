@@ -1,0 +1,26 @@
+We have implemented the “happy path”
+What if something goes wrong when calling the backend?
+ if something goes wrong we need to show a message to the user
+
+ we can put our function in a try catch block
+ in the error block we want to show a different dialog box
+
+ to do that we need a state variable that represents the existence of an error
+ use the state hook declare a variable and initialize it to false
+ call it error and set error
+Const [error, setError] = useState(false)
+
+ in the catch block if we find an error, set error true
+ create a second alert dialog box wrapping the whole code in a fragment
+ title error description this issue could not be deleted
+ provide an okay button
+
+ we can set the alert dialog.root to have an open property t or f
+Set open={error}
+Can test with throw new Error() in the try block
+
+Add mt=2 to ok
+ handle a click event on the okay button that sets the error back to false
+setError(false)
+
+ move our  on click function from the delete button to a variable for size called deleteIssue
