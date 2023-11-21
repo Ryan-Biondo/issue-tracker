@@ -1,0 +1,11 @@
+ we need to show a dialog box when the button is clicked to confirm deletion
+https://www.radix-ui.com/themes/docs/components/alert-dialog
+ basically wrap our button in the alert dialog box inside the trigger
+
+ we cannot access alert Dialogue on the server because we need user interaction 
+so we have to convert this to a client component
+
+ to keep the buttons horizontal put them in a flex container as shown in the example
+Apply the gap and mt
+Wrap cancel in cancel
+Ok in ‘action’
