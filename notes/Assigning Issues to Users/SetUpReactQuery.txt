@@ -1,0 +1,20 @@
+ our current implementation has no error handling
+ we can set up error handling, but what if the back end call fails? There's no logic for retry
+ also, the logic gets recalled every time we call the page with no caching
+ this is where we can use a popular Library called react query or tanstack query
+
+ the better implementation than using the state and effect hooks
+npm i @tanstack/react-query@4.35.3
+Create QueryClientProvider.tsx in the app folder
+import {
+  QueryClient,
+  QueryClientProvider as ReactQueryClientProvider,
+} from '@tanstack/react-query';
+
+ first we create an instance of the query client List contains a cache for restoring data that we get from the back end
+ we should pass this using query client provider to our component tree
+ said it's client prop to query client
+ the reason we have to create this component to wrap this react query client provider 
+-the component uses react context to share this query client with our component tree  
+- react context is only available in client components so we have to declare this component as a client component
+ go to our layout and wrap our application tree with our query client provider
