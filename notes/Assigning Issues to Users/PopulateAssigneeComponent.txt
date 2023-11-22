@@ -1,0 +1,47 @@
+ to populate our select component with the actual users in our database we have to build an API endpoint
+ this is a client component and we cannot access Prisma in the client component
+ build the API endpoint and have the component fetch the users at runtime
+
+ add a new folder called users in the API folder
+ at a route file
+ export a get function
+ we technically don't need to get the request, but to prevent caching we tell it to get again on every request
+ call prisma.user.findMany(
+ to sort users by their name we pass an object and set orderBy: to an object
+ sort by the name property in ascending order
+ await the call to get our users and make the function a sync
+ return an extra response with all these users
+import prisma from "@/prisma/client";
+import { NextRequest, NextResponse } from "next/server";
+
+
+export async function GET(request: NextRequest) {
+    const users = await prisma.user.findMany({ orderBy: {name: 'asc'}})
+    return NextResponse.json(users)
+}
+
+ test in Postman a get request to /api/users
+ should return a list of users -  currently 1
+
+ back in the assignee select component declare a state variable for storing our users\
+const [users, setUsers] = useState<User[]>([])
+ specify the type of users in the angle brackets  from Prisma client
+ next we need an effect hook to make a call to the back end and pass a call back
+ we need to wait the call but we cannot make the call back async because react doesn't allow that
+ instead we have to declare a function called Fetch users
+useEffect(() => {
+    const fetchUsers = async () => {
+      const { data } = await axios.get<User[]>('/api/users');
+      setUsers(data);
+    }
+fetchUsers();
+  }, []);
+ call set users and pass the data
+
+ map each user to a select item
+ {users.map((user) => (
+            <Select.Item key={user.id} value={user.id}>
+              {user.name}
+            </Select.Item>
+          ))}
+
