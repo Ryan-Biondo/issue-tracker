@@ -1,0 +1,30 @@
+ if someone is logged in we want to show the user's Avatar, 
+when we click it, we want to have a drop-down menu
+ where you can see the users email and log out link
+
+ instead of rendering the log out link we will render the drop-down menu
+ we can use a drop-down menu from Radix UI
+https://www.radix-ui.com/themes/docs/components/dropdown-menu
+ start with the root, inside the root we add a trigger
+
+ in our case the trigger will be the user Avatar, import Avatar from radix
+src={session.user!.image!}
+
+ it needs a source, and we get the users image
+ typescript is concerned that user can be undefined but we know that it is defined because it's authenticated so we add an !
+
+ We get an error saying type string or null or undefined is not assignable to type string or undefined -  because the image property can possibly be null
+ using the Google Authentication it is safe to assume that everyone has an automatic value here so we can also use an ! mark here
+
+ we should also include a fallback to display if the user doesn't have an image
+fallback='?'
+ we can change the size of the Avatar by setting the size prop
+ could also use the radius property to make it look round and set radius to full
+
+ add a content block
+Add a label that includes {session.user!.email}
+Wrap it inside a Text component from radix, Set size to 2
+
+ it's currently not clear that our avatars clickable 
+go to the Avatar and set class name to cursor-pointer
+ below the label create a drop-down menu item and move the link
