@@ -1,0 +1,37 @@
+Use react query to get the users from the backend and cache them on the client 
+so we don't have to fetch them every time
+
+In assignee select, call useQuery from react query with 2 properties
+Query key - used for identifying the piece of data
+ query function -  used for fetching the data
+
+ store this in a query object and discharge rate to grab three properties 
+data which we renamed to users, Error, isloading
+const {
+    data: users,
+    error,
+    isLoading,
+  } = useQuery<User[]>({
+    queryKey: ['users'],
+    queryFn: () => axios.get('/api/users').then((res) => res.data),
+  });
+
+
+  users can be implicitly any type so Define it in the user array
+when we call users laterit can be undefined until we fetch so use optional chaining
+
+ as part of creating the query in addition to the query key and the query function 
+we can set a property called stale time default value 0
+ this means he will fetch every time, we want to set a stale time for it to cash the data for a certain. Period
+ We can set another property called retry to three to tell react query to retry three times to fetch the data if failed
+* we could do all of this manually but it would be solving a problem that is already solved
+
+ we can also check if is loading or if air and return a skeleton or nothing if we fail the fetch
+    staleTime: 1000 * 60,
+    retry: 3,
+  });
+
+
+  if (isLoading) return <Skeleton />;
+  if (error) return null;
+
