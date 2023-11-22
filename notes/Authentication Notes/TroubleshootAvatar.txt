@@ -1,0 +1,25 @@
+ we may receive an error 403 from Google forbidding us from getting the image
+(i did not)
+ the error says it's referrer policy is strict origin when cross origin 
+-  we need to set the avatar to no refer
+referrerPolicy=’no-referrer’
+
+ another way to solve this would be the next config object
+Specify http header
+const nextConfig = {
+  async headers() {
+    return [
+      {
+        source: '/:path*',
+        headers: [
+          {
+            key: 'referrer-policy',
+            value: 'no-referrer',
+          },
+        ],
+      },
+    ];
+  },
+};
+
+I had an error that I fixed by removing appearance="light" from out theme in the layout
