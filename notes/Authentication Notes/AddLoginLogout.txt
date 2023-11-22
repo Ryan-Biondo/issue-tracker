@@ -1,0 +1,37 @@
+Add login and logout links
+ eventually we will want a user picture with a drop-down menu, but for now this is the simplest part we can work on
+Go to navbar
+ use the session hook that comes from next-auth/react
+ gives us access to the current authentication session
+ call it, get the result, the destructure it
+ grab two properties 
+status - which can be authenticated/unauthenticated/loading
+Data -  which we will rename to session,  get the current user's name email and image
+const {status, data: session } = useSession();
+
+ create a box underneath the links in our nav bar, and we should dynamically render a link if they're signed in or signed out
+  <Box>
+        {status === 'authenticated' && (
+          <Link href="/api/auth/signout">Log out</Link>
+        )}
+        {status === 'unauthenticated' && (
+          <Link href="/api/auth/signin">Login</Link>
+        )}
+  </Box>
+
+ use session must be wrapped in a session provider
+ the provider is a component that uses react context to pass the authentication session down our component tree
+ to use this properly we need to wrap it inside our custom client component ( refer to part one)
+Create a new folder in app called auth with a Provider.tsx 
+rafce- call it AuthProvider
+  add the props children and annotate it with props with children
+import React, { PropsWithChildren } from 'react'
+
+
+const AuthProvider = ({children}: PropsWithChildren) => {
+
+ wrap the children with a session provider
+<SessionProvider>{children}</SessionProvider>;
+
+ import the used client directive to make it a client component
+ go back to the layout and wrap everything in the body element with our AuthProvider
