@@ -1,0 +1,42 @@
+ securing the application
+ we want to prevent Anonymous users from creating new issues as well as updating or deleting existing ones
+
+ first we need a middleware function
+Function that gets  executed on each request
+gives us an opportunity to redirect the user to the login page
+
+Create a middleware.ts in the project root
+ the functionality to redirect the user to the login page is already implemented in nextAuth
+ we don't have to implement it, just import it and Export it here
+
+ we should also export a configuration object to specify on which routes the middleware function should be applied
+
+Export a constant called config
+Set matcher property to an array of paths
+ this will redirect users from these paths to the login
+
+ we don't have a path for deleting an issue so instead we need to disable the buttons
+ in the ID page called get server session to get the current user session
+- we have to pass the object that we use for initializing nextAuth
+-  in api/off /nextoff routes -  this is the object that we use for initializing next auth 
+we should use the same object when calling getServerSession
+
+ we're going to move that logic into our auth folder called authOptions.ts
+ so that route can read our off options, we have to annotate it with options
+const authOptions: NextAuthOptions
+
+ we can then add off options into our issue detail page as well
+  const session = await getServerSession(authOptions);
+ now only render the actions if there is a session
+ {session && (
+
+ last we need to secure our API endpoints
+api>issues> routes
+ we could add all these roots in the middleware file but the problem with that is in the future if we add any API endpoints that are open to the public, those endpoints will also be protected
+ *we only want to protect end points for creating, updating and deleting data. But not for just reading data - protect them separately
+const session = await getServerSession(authOptions);
+    if (!session) {
+        return NextResponse.json({error: 'Unauthorized'}, {status: 401})
+    }
+Test in postman post to local /api/issues
+
