@@ -1,0 +1,23 @@
+ refactor the code to be more readable and maintainable in the nav bar
+
+Expand selection shortcut alt+shift+right arrow
+ we can create subcomponents within the file
+
+Ctrl shift o to go to symbol in editor
+ we can quickly jump around to different components this way
+ we can move the conditions outside the drop-down menu and if they are authenticated, return the menu
+
+ add the components into the container so that all you see is the nav bar layout and the separated logic below
+
+ so that we don't have to repeat our nav link logic, create a reusable utility class for representing our nav links
+@layer utilities {
+  .nav-link {
+    @apply text-zinc-500 hover:text-zinc-800 transition-colors;
+  }
+}
+
+ className={classNames({
+              'nav-link': true,
+              'text-zinc-900': href === currentPath,
+            })}>
+

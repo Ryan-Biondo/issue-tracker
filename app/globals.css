@@ -6,6 +6,12 @@
   --foreground-rgb: 0, 0, 0;
 }
 
+@layer utilities {
+  .nav-link {
+    @apply text-zinc-500 hover:text-zinc-800 transition-colors;
+  }
+}
+
 @media (prefers-color-scheme: dark) {
   :root {
     --foreground-rgb: 255, 255, 255;
