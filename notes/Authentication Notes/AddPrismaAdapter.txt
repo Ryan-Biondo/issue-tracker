@@ -1,0 +1,36 @@
+We need to configure an adapter so when someone logs into nextauth will store their information in our database
+ go to the adapters page for next auth
+https://next-auth.js.org/adapters
+ use the Prisma adapter
+npm install @prisma/client @auth/prisma-adapter 
+npm install prisma --save-dev
+
+ we will use an older version npm i @next-auth/prisma-adapter@1.0.7
+ we already have Prisma in our project
+Copy the imports
+
+import { PrismaAdapter } from "@auth/prisma-adapter" (change to next)
+import { PrismaClient } from "@prisma/client"
+Add a constant to hold prisma 
+const prisma = new PrismaClient()
+
+Add the adapter above the providers
+adapter: PrismaAdapter(prisma),
+ providers: [
+…
+ ],
+
+ now we need to grab the models for storing users and their accounts and add them in our Prisma schema file (in nextauth docs)
+ anything that says model
+ once pasted into the Prisma schema file, create a migration to sync database with models
+
+npx prisma migrate dev
+
+ when we use an adapter, next auth changes the session strategy from JWT to database  but database strategy doesnt work with oauth providers like google
+session: {
+strategy: ‘jwt’
+}
+(worked for me though, and worked both ways)
+ clear the cookies in the application tab of the dev tools
+
+Refresh tables in db to see update
