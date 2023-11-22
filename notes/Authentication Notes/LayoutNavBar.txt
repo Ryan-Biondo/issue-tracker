@@ -1,0 +1,18 @@
+Layout NavBar
+ we want to separate our login links to the right
+ inside the nav bar will add a flex container with two children
+justify-content: space between
+ remove these Tailwind styles from the nav so that we can apply them with the flex instead using radix UI 
+flex space-x-6  items-center
+
+  <Flex>
+        <Flex></Flex>
+        <Box></Box>
+      </Flex>
+
+ before we had applied a height to our snap element, Now we will apply py-3 to give vertical padding
+Style the flex container, align will keep out image in the center as well
+ <Flex justify="between">
+        <Flex align="center" gap="3">
+
+ wrap everything inside the nav bar in a <Container> to maintain max width with the app
