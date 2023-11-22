@@ -1,0 +1,3 @@
+ to return a skeleton, right now we're just returning no at status loading, 
+ instead return a skeleton from our components and add a width
+<Skeleton width='3rem' />;
