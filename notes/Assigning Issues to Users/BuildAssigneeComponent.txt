@@ -1,0 +1,21 @@
+Implement feature to assign an issue to a user
+1st build the assignee select component 
+- a dropdown list to select the user in the issue description page
+-  we can build this using the select component from Radix
+https://www.radix-ui.com/themes/docs/components/select
+
+Go to the [id] folder. Add a new file called AssigneeSelect.tsx
+<Select.Root>
+      <Select.Trigger placeholder="Assign..." />
+      <Select.Content>
+        <Select.Group>
+          <Select.Label>Suggestions</Select.Label>
+          <Select.Item value="1">Ryan Biondo</Select.Item>
+          <Select.Item value="2">Option 2</Select.Item>
+          <Select.Item value="3">Option 3</Select.Item>
+        </Select.Group>
+      </Select.Content>
+    </Select.Root>
+
+ add the assignee select component into the detail page above the buttons
+ this implementation throws an error unless we add the use client directive to the assignee select component
