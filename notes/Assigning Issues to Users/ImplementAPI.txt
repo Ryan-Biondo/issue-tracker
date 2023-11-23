@@ -1,0 +1,62 @@
+ we need an endpoint in our API for assigning an issue to a user
+ we already built this API we have an API endpoint for patching issues
+api>issues>id>route
+ we're basically going to extend our patch function
+ currently it updates the title and description of an issue
+ we will allow updating the assignedtouserID property as well
+
+ we don't want to have to add a sign to user ID property to our zod schema that is already holding title and description.  
+because when we're checking to assign a user we also would have to check for everything else which doesn't make sense
+ we want the patch endpoint to be flexible to receive different kinds of data
+ one part of our app might be editing the issue, another might be updating the status, and other might be assigning issues
+
+* we didn't do this before but for security reasons it's always good to set a Max constraint on your strings
+ in the database we can see our types of data . our data type is text and the maximum for text is 65535
+ so for description set a Max of 65535
+
+ duplicate the issue schema and call it patch issue schema
+add .optional() to title and desc
+ add a new property called assigned to user ID
+z.string().min(1, "AssignedToUserId is required.").max(255).optional().nullable()
+ make it optional because we want this to be flexible for the patch function
+ make it nullable to explicitly provide null to unassign an issue
+
+ back in the API, 
+ switch to our new patch issue schema
+import { patchIssueSchema } from "@/app/validationSchema";
+do basic validation using Zod
+ after that if there's a user ID in the body, make sure that it's a valid user
+ if body.assignedtouserID  is truthy  await Prisma to find the user ID
+  const {assignedToUserId} = body;
+    if (assignedToUserId) {
+        const user = await prisma.user.findUnique({where: {id: assignedToUserId}})
+        if (!user) {
+            return NextResponse.json({error: 'Invalid User'}, {status: 400})
+        }
+    }
+
+ if we get to the bottom of the page then they are ready to update their issue
+ currently we set the title and description so we can add   assignedToUserId
+ we can destructure title and description like we did with a signed
+data: {title, description, assignedToUserId}
+
+now, if any of these properties are not set/undefined,  they will not be updated. 
+ so if we only update the title and description the assigned to user ID field it's not affected
+
+to test, comment out these lines
+  // const session = await getServerSession(authOptions);
+    // if (!session) {
+    //     return NextResponse.json({error: 'Unauthorized'}, {status: 401})
+    // }
+
+ send a patch request to slash api/issues/id with an empty string for title,  should get an error
+ try updating the title only
+ the only the title should be updated and the description should be untouched
+ try updating the assigned to user ID with an empty string - error
+ if we try updating without a valid user ID should also return an error
+
+ we can try testing by copying a user ID from the database
+should assign to user
+ can pass null to unassign
+
+uncomment our api code
