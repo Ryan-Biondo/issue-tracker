@@ -1,0 +1,37 @@
+ now the API is working, let's work on the UI
+ we want to listen to the change event of the select component
+ when there is a change we should send a patch request to our API
+
+go to AssigneeSelect.tsx
+onValueChange={() => }
+
+ this function receives the selected value as the argument and that's the user ID
+if we check the type of userId it's string bc we set the value prop to user.id
+
+use axios to send the patch req to the api /api/issues/
+ we currently need to pass the prop {issue}:{issue:Issue}
+ we need to pass the prop we're displaying to the signee select component in the page
+
+
+ then we can go to this endpoint issue.id
+in the body of the request we include assignedToUserId set to userId
+onValueChange={(userId) => {
+        axios.patch(`/api/issues/${issue.id}`, { assignedToUserId: userId });
+      }}>
+ we don't need to wait because the ui gives instant feedback
+
+ test by assigning a user and checking the database
+then we can unassign users
+ add a select item before the list of users
+ we cannot use null so just use an empty string and label it unassigned
+ if user ID is truthy we will use that, otherwise using all
+{ assignedToUserId: userId || null}
+
+* an empty string did not work for me, I got an error saying the value cannot be empty for a select item. 
+But I got around this by just making it a string 'unassigned'
+then we say const assignedToUserId = userId === 'unassigned' ? null : userId;
+to convert to null first
+
+last we have to set a default value so the list stayed set to unassigned if no one is chosen
+defaultValue={issue.assignedToUserId || 'unassigned'}
+test by selecting and refreshing - should maintain data from db

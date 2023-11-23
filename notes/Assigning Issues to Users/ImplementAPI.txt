@@ -5,10 +5,12 @@ api>issues>id>route
  currently it updates the title and description of an issue
  we will allow updating the assignedtouserID property as well
 
- we don't want to have to add a sign to user ID property to our zod schema that is already holding title and description.  
+ we don't want to have to add a sign to user ID property to our zod schema 
+ that is already holding title and description.  
 because when we're checking to assign a user we also would have to check for everything else which doesn't make sense
  we want the patch endpoint to be flexible to receive different kinds of data
- one part of our app might be editing the issue, another might be updating the status, and other might be assigning issues
+ one part of our app might be editing the issue, another might be updating the status, 
+ and other might be assigning issues
 
 * we didn't do this before but for security reasons it's always good to set a Max constraint on your strings
  in the database we can see our types of data . our data type is text and the maximum for text is 65535
