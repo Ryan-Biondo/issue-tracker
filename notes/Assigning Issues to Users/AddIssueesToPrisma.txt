@@ -1,0 +1,33 @@
+We need the prison schema and extend our models to store the assignment of issues to users
+ add a new field to the issue model called assignedToUserId 
+String? - optional because it may not be assigned
+string type - MySQL maps using varchar 191
+for consistency use the db attribute to change the type of underlying column in the db
+@db.VarChar(255)
+
+*The only difference between the two is the maximum length of the string that can be stored. 
+VARCHAR(191) can store up to 191 characters, while VARCHAR(255) can store up to 255 characters.
+- MySQL uses VARCHAR(191) by default because it is more efficient for storing short strings. 
+When you use VARCHAR(255), you are reserving 255 bytes of storage for each string, 
+even if the string is only 1 character long. 
+This can be wasteful, especially if you have a lot of short strings in your database.
+
+ add another field to create the relationship between the issue and the user models
+assignedToUser - type User?
+@relation()- to add a relationship between 2 models, issue and user
+ we can specify What fields should be mapped to the user model
+ Fields is what we're taking and references is the target
+ctrl+space to see all fields available
+ so are assigned to user ID will be mapped to the ID of the user model
+fields: [assignedToUserId], references: [id]
+
+ whenever we create a relationship, we need the opposite relationship in the other model
+shift +ctrl+o to skip to other objects
+in user add assignedIssues of type Issue[] - takes the issue model
+*We basically have done this for account and session as well
+
+format the code
+npx prisma migrate dev
+call it add assigned issues
+
+ this creates a new column in our database called assigned to user ID
