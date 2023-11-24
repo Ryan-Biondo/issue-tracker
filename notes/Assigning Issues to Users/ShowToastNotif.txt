@@ -1,0 +1,34 @@
+toast notifications
+happy path is complete -  properly handle errors and if call to the back end fails show a toast notification to the user
+npm i react-hot-toast@2.4.1
+
+ in our select component, import the toast object which is the default export and the {Toaster} component
+ wrap our component in a fragment and add the toaster component at the bottom
+
+ we need to wrap our axios call in a try catch block
+ or we can pass the catch method to get an error pass a call back
+use the toast object to provide an error
+ onValueChange={(userId) => {
+          const assignedToUserId = userId === 'unassigned' ? null : userId;
+          axios
+            .patch('/api/issues/' + issue.id, {
+              assignedToUserId: assignedToUserId,
+            })
+            .catch(() => {
+              toast.error('Changes could not be saved.');
+            });
+        }}
+
+ test with a bad endpoint, should get a toast pop up that lasts a few seconds
+ can style the toaster component
+ <Toaster
+        toastOptions={{
+          style: {
+            background: '#333',
+            color: '#fff',
+          },
+        }}
+        position="bottom-center"
+        reverseOrder={false}
+      />
+
