@@ -1,0 +1,37 @@
+Refactor the Select component
+move the onValueChange function into a variable
+ const assignIssue = (userId: string) => {
+    const assignedToUserId = userId === 'unassigned' ? null : userId;
+    axios
+      .patch('/api/issues/' + issue.id, {
+        assignedToUserId: assignedToUserId,
+      })
+      .catch(() => {
+        toast.error('Changes could not be saved.');
+      });
+  };
+
+* we could separate out use Query into a custom hook, but this is the only place we use it, 
+and it's fine to be defined here
+we are more polluting our project structure
+however we can separate a custom hook within the module (above the export)
+const useUsers = () =>
+  useQuery<User[]>({
+    queryKey: ['users'],
+    queryFn: () => axios.get('/api/users').then((res) => res.data),
+    staleTime: 1000 * 60,
+    retry: 3,
+  });
+ because we don't expect a lot of users in a short. 
+ Of time it's safe to change our stale time to something like 10 minutes or an hour
+
+ some might argue that moving the axios function outside of this hook 
+ like before there's not a lot of reusability there it's only used in this spot
+ some apps might require logging all the API calls and have them in a single place, 
+ but we currently don't have that requirements so there's no purpose in adding the extra abstraction
+trap to avoid: dont get caught up in problems you might have, solve the problems at the current stage
+
+ we could argue that it would be nicer to have a single place where our endpoints are specified 
+ and we shouldn't repeat them, 
+ however your endpoints should not change 
+ - it is a contract that our app is exposed to the outside
