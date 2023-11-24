@@ -1,0 +1,40 @@
+Build the filter component
+filter by status
+create a component for selecting a status inside the issue list
+IssueStatusFilter.tsx
+
+Create a select component starting wiht root
+create select trigger with a placeholder like Filter by status…
+add a select.content and inside we can create a bunch of items
+We want to store the statuses so we can map each status to a select item
+
+const statuses = { label: 'Open', value: 'OPEN' },
+ the value here must be valid status so we can use typescript to make sure
+annotate the object with it's type
+we want it to be an array of objects 
+with 2 properties, label: string, and value: Status from prisma client
+const statuses: { label: string; value?: Status }[] = [
+  { label: 'All' },
+  { label: 'Open', value: 'OPEN' },
+  { label: 'In Progress', value: 'IN_PROGRESS' },
+  { label: 'Closed', value: 'CLOSED' },
+];
+ since the empty string is not a valid status we can remove it and make value optional for all
+
+ map each item in the array to a select item
+ because value is optional say or empty string
+ an hour version empty string doesn't work so we can use an invalid status like "All"
+{statuses.map((status) => (
+            <Select.Item key={status.value} value={status.value || ''}>
+              {status.label}
+            </Select.Item>
+          ))}
+
+ make the filter use client
+ add the filter to  the issue actions and put it in a flex container
+<Flex mb="5" justify="between">
+      <IssueStatusFilter />
+      <Button>
+        <Link href="/issues/new">New Issue</Link>
+      </Button>
+    </Flex>
