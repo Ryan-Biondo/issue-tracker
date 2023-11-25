@@ -1,0 +1,55 @@
+ now we want to filter by status
+ open the list page
+ here we use Prisma to fetch the issues from the database
+ to filter issues by status, we should pass the status as a query parameter to this component or this page
+ so when the user select says status, we should pass that status as a query parameter to the URL
+
+set on value change function to the root of the select component
+  const router = useRouter();
+
+
+  return (
+    <Select.Root
+      onValueChange={(status) => {
+ we send the user there but only when I include a query parameter if status is truthy
+onValueChange={(status) => {
+        const query = status ? `?status=${status}` : '';
+        router.push(`/issues/list${query}`);
+      }}
+
+ we cannot use an empty string as a value for select components
+ we have to convert all to an empty string, if not use the selected status
+onValueChange={(selectedStatus) => {
+        // Convert 'all' to an empty string
+        const status = selectedStatus === 'all' ? '' : selectedStatus;
+        const query = status ? `?status=${status}` : '';
+        router.push('/issues/list' + query);
+
+ now to filter, go back to the list page
+ add the search params prop to the component
+const IssuesPage = async ({
+  searchParams,
+}: {
+  searchParams: { status: Status };
+})
+or 
+interface Props {
+  searchParams: { status: Status };
+}
+
+
+const IssuesPage = async ({ searchParams }: Props)
+
+ test to make sure we have the right status
+ CLg searchParams.status OPEN IN_PROGRESS CLOSED and undefined for 'all'
+ to filter, when passing find many pass an object
+set where to an object and set status to searchParams.status
+
+ if a user were to put a bad URL in, it crashes our app here. 
+We need  to validate the status before passing it to Prisma
+ call object.values(Status) and pass the Status type that is defined in Prisma client
+ check if the values [OPEN IN_PROGRESS CLOSED]  are included in the search programs.status, if not return undefined
+const statuses = Object.values(Status);
+  const status = statuses.includes(searchParams.status)
+    ? searchParams.status
+    : undefined;
