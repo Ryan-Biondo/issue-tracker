@@ -1,0 +1,53 @@
+ build a pagination component. 
+Should be reusable because we want to be able to paginate different kinds of data like issues users so on
+ it needs a few props so make an interface
+itemCount: number; - total items
+  pageSize: number; - number to show on each page
+  currentPage: number; - current page
+and add the props to the component
+
+ we can divide item count by Page size to find the number of pages
+const pageCount = Math.ceil(itemCount / pageSize);
+if (pageCount <= 1) return null;
+ check if the page count is one or less
+
+ we can test the pagination component anywhere by passing values for the props
+<Pagination itemCount={100} pageSize={10} currentPage={2} />
+ if item count is 10 making page count one or less, the component disappears properly
+
+ add a button below the text in the flex component
+ add  a react icon
+ disable it if it's on the first page or last page
+ <Button color="gray" variant="soft" disabled={currentPage === 1}>
+        <ChevronLeftIcon />
+      </Button>
+      <Button color="gray" variant="soft" disabled={currentPage === pageCount}>
+        <ChevronRightIcon />
+      </Button>
+
+Pagination is a technique used to divide data into discrete pages. 
+This is especially useful for web applications when dealing with large datasets, 
+as it allows users to navigate through the data without having to load the entire dataset at once. 
+Pagination typically involves displaying a limited number of items on each page and providing navigation controls, 
+such as links or buttons, to move between pages.
+
+Here are some of the benefits of using pagination:
+Improved performance: Pagination reduces the amount of data that needs to be loaded initially, 
+which can significantly improve page load times and responsiveness.
+Enhanced user experience: Pagination helps users manage large datasets more effectively, 
+making it easier to find specific information and avoid overwhelming them with too much data at once.
+
+Reduced server load: By limiting the amount of data transferred, 
+pagination can help reduce the load on the server, 
+especially when dealing with a large number of users accessing the data simultaneously.
+Pagination is commonly implemented in various forms, including:
+Link-based pagination: This uses hyperlinks to navigate between pages. 
+For example, a page might have links labeled "Previous," "1," "2," "3," "Next."
+Load-on-scroll pagination: This dynamically loads more items as the user scrolls down the page. 
+This approach is often used in social media feeds and long articles.
+
+Infinite scroll pagination: This continuously loads more items as the user reaches the end of the current page, 
+creating a seemingly endless scroll. 
+However, it can make it harder for users to keep track of their position within the dataset.
+Pagination is a valuable technique for managing large datasets in web applications, 
+ensuring a smooth and efficient user experience while optimizing performance and server load.

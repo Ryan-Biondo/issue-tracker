@@ -1,0 +1,14 @@
+Generate dummy data in gpt
+Given the following Prisma model, generate an SQL statement to insert 20 records into the issues table. Use real world titles and descriptions for each issue. Status can be OPEN, IN_PROGRESS OR CLOSED. Description should be a paragraph long. Provide different values for the createdAt and updatedAt columns.
+
+model Issue {
+  id               Int      @id @default(autoincrement())
+  title            String   @db.VarChar(255)
+  description      String   @db.Text
+  status           Status   @default(OPEN)
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+}
+
+Copy the sql records and go to new query console
+ Ensure that the table is the same name and that your database is selected, and execute the SQL code
