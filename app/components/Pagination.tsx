@@ -1,3 +1,5 @@
+'use client';
+
 import {
   ChevronLeftIcon,
   ChevronRightIcon,
@@ -13,7 +15,6 @@ interface Props {
   pageSize: number;
   currentPage: number;
 }
-
 const Pagination = ({ itemCount, pageSize, currentPage }: Props) => {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -63,5 +64,4 @@ const Pagination = ({ itemCount, pageSize, currentPage }: Props) => {
     </Flex>
   );
 };
-
 export default Pagination;

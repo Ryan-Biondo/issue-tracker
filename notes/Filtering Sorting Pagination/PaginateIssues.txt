@@ -1,0 +1,32 @@
+Paginating issues
+Go to the issues list page and add page: string
+ all search parameters are string values we have to parse them into other types of objects if we need
+    const page = parseInt(searchParams.page) || 1;
+    const pageSize = 10;
+ then we can set the value to one if there is no page and we can hard code a page size
+ in the future we can implement a drop-down menu to change the page size
+
+ we  can add extra properties here like skip
+# of records we should skip (so arent refetching the first pages or all the data)
+skip: (page - 1) * pageSize,
+and take - # we want to fetch (so we only fetch the page worth of data)
+
+ we need to know the total number of issues so we can pass it to the pagination component
+const issueCount = await prisma.issue.count({
+    where: {
+      status,
+    },
+  });
+ we can reduce this down because we repeat the where object so store it in a constant
+ const where = { status };
+
+ the pagination component will go at the bottom of our table
+ <Pagination
+        pageSize={pageSize}
+        currentPage={page}
+        itemCount={issueCount}
+      />
+ now we should be able to navigate between Pages while they're filtered even
+
+ this component has a lot of logic in it, and it's Focus as a page component should be to lay out the other components 
+so we should separate some out
