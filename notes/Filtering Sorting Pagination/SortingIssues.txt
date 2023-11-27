@@ -1,0 +1,22 @@
+sorting issues
+to sort, when we call the findMany method, add the orderBy property
+set to an object
+ include the property you want to sort by, and this case title status and created at
+ we can say them all at once by putting them in a array
+ we get a crash when we try to filter  because we haven't added our order by key to our Prisma object 
+ we need to create a constant to check if  the order by property exists
+  const orderBy = searchParams.orderBy
+    ? { [searchParams.orderBy]: 'asc' }
+    : undefined;
+ then we can remove the object definition and just call the object in our find many method
+
+ we crash if we have an invalid property names, so we have to validate the URL
+ the order by parameters should be set to only one value at a time so we can check to see if it's one of those
+ we can't check columns.include because it expects a column object
+ we need to map each column to its value
+  const orderBy = columns
+    .map((column) => column.value)
+    .includes(searchParams.orderBy)
+    ? { [searchParams.orderBy]: 'asc' }
+    : undefined;
+
