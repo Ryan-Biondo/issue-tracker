@@ -1,0 +1,37 @@
+implement pagination
+ as the user navigates through pages, the current page should be passed as a query parameter to the current URL
+ we need two hooks
+ useRouter -  from next slash navigation for updating the current URL
+useSearchParams - access current query parameters
+dont want to clear the existing parameters
+
+define a function for updating the current page
+ const changePage = (page: number) => {
+    const params = new URLSearchParams(searchParams);
+    params.set('page', page.toString());
+    router.push('?' + params.toString());
+  };
+ then we can use this on our buttons
+        onClick={() => changePage(1)}
+
+ currently our pages are hard coded
+ we need to update them to  accept the query parameters
+  provide props to get search params
+
+import Pagination from './components/Pagination';
+
+
+export default function Home({
+  searchParams,
+}: {
+  searchParams: { page: string };
+}) {
+  return (
+    <Pagination
+      itemCount={100}
+      pageSize={10}
+      currentPage={parseInt(searchParams.page)}
+    />
+  );
+}
+ this implementation should ignore other query parameters and not clear them
