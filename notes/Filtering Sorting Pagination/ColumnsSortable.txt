@@ -1,0 +1,43 @@
+Make columns sortable
+to sort data, we need to make the columns clickable
+they should send query parameters back to our page
+
+Store the columns in an array of objects so we dont have to repeat
+  const columns: { label: string; value: keyof Issue; className?: string
+  }[] = [
+    {
+      label: 'Issue',
+      value: 'title',
+    },
+    {
+      label: 'Status',
+      value: 'status',
+className: 'hidden md:table-cell',
+    },
+    {
+      label: 'Created',
+      value: 'createdAt',
+className: 'hidden md:table-cell',
+    },
+  ];
+
+We have logic for mobile devices, so we should include the class name optionally in The Columns
+ set the class name on the applicable columns
+ map the column variable to  table column header cells
+ wrap the label in a NextLink from next slash link to make them look different than our custom links
+
+ if we set our link to href={`/issues/list?orderBy=${column.value}`
+ this works, but it replaces our filtering method
+ to solve this problem set href to an object
+ spread the search programs to copy all the existing parameters
+them override the orderBy value
+href={{ query: { ...searchParams, orderBy: column.value } }}
+
+
+ add the order by property to our search pARAMS
+and add an icon
+{column.value === searchParams.orderBy && (
+                  <ArrowUpIcon className="inline" />
+                )}
+
+
