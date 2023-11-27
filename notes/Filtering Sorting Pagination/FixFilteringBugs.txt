@@ -1,0 +1,33 @@
+ our current implementation resets  sorting if you filter after
+call useSearchParams() -  accesses the current Quarry parameters
+ returns an object we can call it search params
+then we can
+searchParams.get('orderBy');
+
+const params = new URLSearchParams();
+ then we can check if our selected status is there, and we can append a status
+if (selectedStatus) params.append('status', selectedStatus);
+then we can check for orderBy
+       if (searchParams.get('orderBy'))
+          params.append('orderBy', searchParams.get('orderBy')!);
+
+ then we can call params.tostring instead of our query logic. 
+ we should prefix it with a? But only if we have at least one parameter
+onValueChange={(selectedStatus) => {
+        const params = new URLSearchParams();
+        if (selectedStatus) params.append('status', selectedStatus);
+        if (searchParams.get('orderBy'))
+          params.append('orderBy', searchParams.get('orderBy')!);
+        const query = params.size ? `?${params.toString()}` : '';
+        router.push('/issues/list' + query);
+      }}
+
+ our filter status isn't represented in the drop-down bar on a refresh, but the query remains
+Root will need a default value 
+use the current status from the url
+defaultValue={searchParams.get('status') || 'all'}
+
+ earlier we Define The Columns and added the class name properties but forgot to add in our markup in Table.ColumnHeaderCell
+key={column.value}
+className={column.className}>
+ this should make it responsive
