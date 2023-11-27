@@ -1,0 +1,46 @@
+Issue table violates srp
+ move the table into a new component
+ get All Imports, and manually get the next link import
+ import the issue model from Prisma client
+ then we need to move data like the columns, issue array, and the search params
+
+ Define an interface for props we need search params of type,
+ import the status model
+ add the issue property of type issue array
+interface Props {
+  searchParams: { status: Status; orderBy: keyof Issue; page: string };
+  issues: Issue[];
+}
+
+<IssueTable searchParams={searchParams} issues={issues} />
+include this in our page
+
+ we need the column array in both components,
+ we can export the logic so that both can use them.
+ But we have logic that's specific to the issue table that we shouldn't expose
+like classnames and labels
+(would violate encapsulation principle)
+ instead, export a constant called column names when we map the columns to each column value
+export const columnNames = columns.map((column) => column.value);
+then we can replace
+columns
+    .map((column) => column.value)
+with columnNames
+
+ currently we duplicate our search params
+ because this page is dependent on the issue table we should move the definition of the interface into the issue table and reuse it in both spots
+export interface IssueQuery {
+  status: Status;
+  orderBy: keyof Issue;
+  page: string;
+}
+
+
+interface Props {
+  searchParams: IssueQuery;
+  issues: Issue[];
+}
+
+replace our page layourt with Flex
+ at a gap and make a direction column
+ remove the bottom margin from the issue actions component
