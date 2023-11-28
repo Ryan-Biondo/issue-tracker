@@ -1,0 +1,13 @@
+env file should always be hidden from the repo
+ but we do want an example in the file so that anyone who does clone it knows what environment variables they need to set
+DATABASE_URL=""
+NEXTAUTH_URL="http://localhost:3000"
+NEXTAUTH_SECRET=""
+GOOGLE_CLIENT_ID=""
+GOOGLE_CLIENT_SECRET=""
+
+ if you do push to repo,  there is a tool called git-filter-repo (or another BFG Repo-Cleaner)
+ if you have python on your machine, we can take the get filter repo file and rename it to .py
+ add it to the root of the project
+run in terminal
+python3 git-filter-repo.py –path .env –invert-paths –force
