@@ -1,0 +1,35 @@
+ to build the chart component, we're going to use recharts
+https://recharts.org/en-US/
+npm i recharts@2.8.0
+
+ this component needs the same props as the issue summary component, 
+we want to pass three values here
+ the number of open in progress and closed issues
+ if we want components to be completely independent of each other,
+ we can repeat the props instead of sharing them
+
+import { ResponsiveContainer, BarChart, XAxis, YAxis, Bar } from 'recharts';
+
+ we need a data prop to send an array that contains all our data and labels
+ then when we pass the bar chart we can pass the data
+const data = [
+    { label: 'Open', value: open},
+    { label: 'In-Progress', value: inProgress},
+    { label: 'Closed', value: closed}
+];
+  return (
+    <Card>
+      <ResponsiveContainer width='100%' height={300}>
+        <BarChart data={data}></BarChart>
+      </ResponsiveContainer>
+    </Card>
+  );
+ label the x-axis like this <XAxis dataKey="label" />
+label the bar  <Bar dataKey="value" fill="#8884d8" />
+ it will grab our label property in our data and grab the appropriate value
+ rechart requires that we use the client directive
+
+ to make the bars thinner, set the bar size to 60
+ normally we could set fill to change the color
+ in this case we want to match our accent color so use Style
+style={{ fill: 'var(--accent-9)' }}
