@@ -1,0 +1,10 @@
+ before we can deploy production, we need to set up our production database
+ we need in MySQL provider. We can use PlanetScale
+has a free tier for 1 db
+https://app.planetscale.com/
+ start with an empty database
+ choose Prisma as the framework for the database
+ we already have Prisma installed, we just need the database URL
+- for the env in vercel
+
+ once the database is running, we can deploy to vercel
