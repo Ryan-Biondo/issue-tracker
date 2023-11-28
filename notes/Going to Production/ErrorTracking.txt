@@ -1,0 +1,12 @@
+Set up error tracking and monitoring
+ we don't know what errors people might encounter  once it's in production
+Sentry, BugSnag, LockRocket
+
+ go to sentry.io
+ create a new project
+ run npx @sentry/wizard@latest -i nextjs
+ this sets up  listeners for the errors
+ you can then see your errors in Century pull up time and all kinds of other data like version environment location, os
+
+sentryy doesn't just track bugs, you can also create teams and assign bugs
+ we don't need  the example page and the example route  so delete it before pushing
