@@ -1,0 +1,28 @@
+Create a new file called latest issues in the root
+  const issues = await prisma.issue.findMany({
+    orderBy: { createdAt: 'desc' },
+    take: 5,
+  });
+  return (
+    <Table.Root>
+      <Table.Body>
+        {issues.map((issue) => (
+          <Table.Row key={issue.id}>
+            <Table.Cell>{issue.title}</Table.Cell>
+          </Table.Row>
+        ))}
+      </Table.Body>
+    </Table.Root>
+
+ we can Style the last five with next links and flex columns to show the badge
+ in another Flex  between to include the user profile picture on the right
+ in order to get the Avatar,  we have to fetch that with our issues
+ in the query, include a include object
+ include: {
+        assignedToUser: true,
+    }
+ once we include the property, it'll be included in our issue objects
+ so we can call issue.assignedToUser && ( <Avatar src={issue.assignedToUser.image!} fallback='?' size='2' radius='full' />)
+
+ we can wrap the whole table in a card component
+ and add a heading
