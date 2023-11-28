@@ -1,0 +1,12 @@
+ we want to create three cards horizontally that show the number of issues for a given status
+ to avoid creating three separate cards we can lay out our information in an array first
+ pass the props of open in progress and closed to the statuses so that we can get them from outside
+
+ we want to create a new property called status to send the user to the issue list page and apply a filter for the status
+ we can annotate our status's object with an object array  and specify status as a status from Prisma client
+ then they can only be one of our valid statuses like IN_PROGRESS
+
+ style the components with gaps and text size
+ go back in the homepage and call Prisma to get the count
+const open = await prisma.issue.count({ where: { status: 'OPEN' } });
+ then use those variables instead of hardcoded values
