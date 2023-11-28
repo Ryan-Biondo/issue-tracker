@@ -1,0 +1,27 @@
+ we've built all of our features, but we need to optimize SEO
+ give each page a proper title and description (shows on the tab)
+ export a metadata constant, next JS looks for this as the Metadata type from next
+ at a minimum we set our title and description 
+*but it's also better to add open graph and Twitter properties so people can easily share our content on social media
+export const metadata: Metadata = {
+  title: 'Issue Tracker - Dashboard',
+  description: 'View a summary of project issues.',
+};
+ we want this on each page
+
+ on the issue Details page, we want to have dynamic metadata
+ we need to have access to a route parameters so we fetch the given ID from the database
+export async function generateMetadata({ params }: Props) {
+  const issue = await prisma.issue.findUnique({
+    where: {
+      id: parseInt(params.id),
+    },
+  });
+
+
+  return {
+    title: issue?.title,
+    description: 'Details of issue ' + issue?.id,
+  };
+}
+

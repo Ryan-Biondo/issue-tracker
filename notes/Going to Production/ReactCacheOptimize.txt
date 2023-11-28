@@ -1,0 +1,21 @@
+ we can optimize performance using react cache
+ currently, our issue detail page fetches the data twice. Once to get metadata another time to get the issue
+ we can use the cache function in react to reduce the extra load cache()
+give it a callback function
+
+ since we do not have any code that runs after the call theres no reason to await
+ we can store this in a constant and reuse it on both calls
+const fetchUser = cache((issueId: number) =>
+  prisma.issue.findUnique({ where: { id: issueId } })
+);
+
+ then we can pass it to the other functions
+await fetchUser(parseInt(params.id));
+to show this implementation query the call only once
+ we can turn on log in our prismic client - 
+  return new PrismaClient({
+    log: ['query'],
+  })
+
+ by adding query, all the queries that are sent to the database will be logged to the console
+ remove that line before continuing
