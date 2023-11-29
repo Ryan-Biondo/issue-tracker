@@ -1,0 +1,52 @@
+In order to implement descending order for our issues list
+ instead of explicitly setting our sort to a string called 'asc'
+ we set it to a variable that could be ascending or descending
+const sortOrder = searchParams.sortOrder === 'desc' ? 'desc' : 'asc';
+then we can use the variable dynamically
+const orderBy = columnNames.includes(searchParams.orderBy)
+    ? { [searchParams.orderBy]: sortOrder }
+    : undefined;
+
+ sort order is not a property of search programs
+ we need to add it to the props in our issue table component
+export interface IssueQuery {
+  status: Status;
+  orderBy: keyof Issue;
+  page: string;
+  sortOrder: 'asc' | 'desc';
+}
+
+
+interface Props {
+  searchParams: IssueQuery;
+  issues: Issue[];
+}
+
+ then we can use the variable to determine which icon and link to render
+<NextLink
+                href={{
+                  query: {
+                    ...searchParams,
+                    orderBy: column.value,
+                    sortOrder:
+                      column.value === searchParams.orderBy &&
+                      searchParams.sortOrder !== 'desc'
+                        ? 'desc'
+                        : 'asc',
+                  },
+                }}>
+
+{column.value === searchParams.orderBy &&
+                (searchParams.sortOrder === 'desc' ? (
+                  <ArrowDownIcon className="inline" />
+                ) : (
+                  <ArrowUpIcon className="inline" />
+                ))}
+
+ then we can also set the issue filter status to check if the sortOrder is set, so that it doesn't reset on a filter change
+ if (searchParams.get('orderBy')) {
+          params.set('orderBy', searchParams.get('orderBy')!);
+          params.set('sortOrder', searchParams.get('sortOrder') || 'asc');
+        }
+
+ test to see that the implementation is working
