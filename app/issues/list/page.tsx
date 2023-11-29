@@ -15,7 +15,6 @@ const IssuesPage = async ({ searchParams }: Props) => {
   const status = statuses.includes(searchParams.status)
     ? searchParams.status
     : undefined;
-
   const where = { status };
 
   const orderBy = columnNames.includes(searchParams.orderBy)
@@ -32,9 +31,7 @@ const IssuesPage = async ({ searchParams }: Props) => {
     take: pageSize,
   });
 
-  const issueCount = await prisma.issue.count({
-    where,
-  });
+  const issueCount = await prisma.issue.count({ where });
 
   return (
     <Flex direction="column" gap="3">
@@ -53,7 +50,7 @@ export const dynamic = 'force-dynamic';
 
 export const metadata: Metadata = {
   title: 'Issue Tracker - Issue List',
-  description: 'View all project issues.',
+  description: 'View all project issues',
 };
 
 export default IssuesPage;
