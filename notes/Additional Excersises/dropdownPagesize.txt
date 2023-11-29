@@ -1,0 +1,26 @@
+ I started with creating a select menu from Radix UI in the pagination component
+ I decided to move the pagination component into the list folder since it is only used there
+
+required setting our hard-coded values to Dynamic values
+ and only allowing those values
+ we separated the values out into a pagination config so that both server and client components could access the array
+ we also check if the values are one of these values, and if not revert to default
+  const pageSize =
+    searchParams.pageSize &&
+    pageSizes.includes(parseInt(searchParams.pageSize, 10))
+      ? parseInt(searchParams.pageSize, 10)
+      : 10; // Default to 10 if undefined or not in pageSizes
+
+ then I realized that the pagination component is set to disappear when there are no other pages 
+ but I want the size selector to still be available
+ so we separated out the selector into its own component
+it passes the page size prop
+  const changePageSize = (size: string) => {
+    const newSize = parseInt(size, 10);
+    const params = new URLSearchParams(searchParams);
+    params.set('pageSize', newSize.toString());
+    params.set('page', '1'); // Reset to page 1
+    router.push(`?${params.toString()}`);
+  };
+
+ we kept all the logic  for setting a new page size encapsulated
