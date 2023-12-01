@@ -5,21 +5,34 @@ import { Select } from '@radix-ui/themes';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import toast, { Toaster } from 'react-hot-toast';
+import { useRouter } from 'next/navigation';
 
 const AssigneeSelect = ({ issue }: { issue: Issue }) => {
   const { data: users, error, isLoading } = useUsers();
-
   if (isLoading) return <Skeleton />;
   if (error) return null;
 
+  const router = useRouter();
   const assignIssue = (userId: string) => {
     const assignedToUserId = userId === 'unassigned' ? null : userId;
+
     axios
-      .patch('/api/issues/' + issue.id, {
-        assignedToUserId: assignedToUserId,
+      .patch(`/api/issues/${issue.id}`, { assignedToUserId })
+      .then(() => {
+        if (assignedToUserId) {
+          return axios.patch(`/api/issues/${issue.id}`, {
+            status: 'IN_PROGRESS',
+          });
+        }
+      })
+      .then(() => {
+        toast.success('Assignee updated successfully.');
       })
       .catch(() => {
         toast.error('Changes could not be saved.');
+      })
+      .finally(() => {
+        router.refresh();
       });
   };
 

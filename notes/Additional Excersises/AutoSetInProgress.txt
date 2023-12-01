@@ -1,0 +1,35 @@
+Updated the Assignee Selection Component:
+
+I modified the AssigneeSelect component to handle more than just assigning a user. 
+After assigning an assignee, the component now also triggers an update to the issue's status. 
+I used Axios to send a PATCH request to my server, updating the assignedToUserId of the issue.
+
+Implemented Conditional Status Update Logic:
+
+In the assignIssue function, I added logic to check if an assignee was selected 
+(i.e., the user ID is not 'unassigned'). If so, the component makes an additional 
+PATCH request to update the issue's status to "In Progress."
+
+Handled Asynchronous Operations:
+
+To manage these asynchronous operations, I employed the .then().catch() pattern. 
+This allowed me to sequentially execute the assignee update followed by the status update, 
+while also handling any potential errors.
+
+Optimized User Feedback:
+
+I ensured that users received immediate feedback on their actions. 
+This was done using toast notifications to display success messages when the 
+assignee and status were successfully updated, and error messages if the process failed.
+
+Refined the User Experience:
+
+To enhance the user experience, I added a router.refresh() call in the .finally() 
+block of the promise chain. This ensures that the page is refreshed, 
+and the latest data is displayed regardless of whether the API calls succeed or fail.
+
+Conducted Testing and Adjustments:
+
+After implementing these changes, I thoroughly tested the updated component. 
+I made sure that selecting an assignee correctly updated the status and that the 
+UI reflected these changes without requiring a manual page reload.
