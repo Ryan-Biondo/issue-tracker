@@ -1,0 +1,52 @@
+Developed the StatusSelect Component:
+
+I started by creating the StatusSelect component. 
+This component provides a dropdown menu for users to select and update the status of an issue. 
+I made sure to integrate this component within the issue details page of my application.
+
+Mapped Status Enum to User-Friendly Labels:
+
+Knowing the importance of user-friendly interfaces, 
+I utilized the Status enum from Prisma to represent different issue statuses. 
+To display these statuses in a more readable format, I created a mapping. 
+I defined this mapping in a separate utility file (statusUtils.ts) 
+where each enum value is mapped to a more descriptive label. 
+This mapping was then used in both the StatusSelect and IssueStatusBadge components for consistency.
+
+Handled API Interaction:
+
+For updating the issue status, I implemented an API interaction using axios.patch 
+within the StatusSelect component. When a new status is selected, 
+the component sends a PATCH request to my server with the new status, 
+updating the issue's status in the database.
+
+Implemented Error Handling:
+
+I added error handling in the StatusSelect component to manage any issues that might arise 
+during the API call. In case of a failure in updating the status, 
+a toast notification is displayed to inform the user.
+
+Updated Server-Side Logic:
+
+On the server side, I adjusted the route handler to properly process 
+the status field in the PATCH request. This involved modifying my existing 
+API route to ensure it correctly updates the status field in the database.
+
+Chose Toast Notifications for User Feedback:
+
+After considering different options for user feedback, 
+I decided against using a loading spinner. Instead, 
+I chose to use toast notifications for immediate feedback upon the success or failure 
+of the status update. This approach seemed more straightforward and less intrusive 
+while still keeping the user informed.
+
+Conducted Thorough Testing:
+
+I thoroughly tested the new feature to confirm that the status updates 
+were being correctly reflected both in the database and on the user interface. 
+This testing ensured that the feature worked seamlessly and as intended.
+
+Opted for a Streamlined Implementation:
+
+In the end, I focused on keeping the implementation of this feature streamlined and user-centric. 
+I avoided overcomplicating the UI, ensuring that the status update process was intuitive and efficient 
