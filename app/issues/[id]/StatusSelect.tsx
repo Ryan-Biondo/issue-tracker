@@ -25,7 +25,10 @@ const StatusSelect = ({ issue }: StatusSelectProps) => {
 
   return (
     <>
-      <Select.Root defaultValue={issue.status} onValueChange={changeStatus}>
+      <Select.Root
+        key={issue.status}
+        defaultValue={issue.status}
+        onValueChange={changeStatus}>
         <Select.Trigger placeholder="Select status..." />
         <Select.Content>
           <Select.Group>

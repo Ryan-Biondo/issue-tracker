@@ -24,7 +24,7 @@ assignee and status were successfully updated, and error messages if the process
 
 Refined the User Experience:
 
-To enhance the user experience, I added a router.refresh() call in the .finally() 
+To enhance the user experience, I added a router.refresh() call in the .then() 
 block of the promise chain. This ensures that the page is refreshed, 
 and the latest data is displayed regardless of whether the API calls succeed or fail.
 
@@ -33,3 +33,11 @@ Conducted Testing and Adjustments:
 After implementing these changes, I thoroughly tested the updated component. 
 I made sure that selecting an assignee correctly updated the status and that the 
 UI reflected these changes without requiring a manual page reload.
+
+Fix StatusSelect rerender:
+
+In order to refresh the dropdown after auto selecting 
+I needed to add the  key prop to the Select component
+The key prop serves as a unique identifier for React components. 
+React uses this key to determine whether to re-render a component or 
+to preserve its state across renders.
