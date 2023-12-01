@@ -9,10 +9,10 @@ import { useRouter } from 'next/navigation';
 
 const AssigneeSelect = ({ issue }: { issue: Issue }) => {
   const { data: users, error, isLoading } = useUsers();
+  const router = useRouter();
   if (isLoading) return <Skeleton />;
   if (error) return null;
 
-  const router = useRouter();
   const assignIssue = (userId: string) => {
     const assignedToUserId = userId === 'unassigned' ? null : userId;
 
