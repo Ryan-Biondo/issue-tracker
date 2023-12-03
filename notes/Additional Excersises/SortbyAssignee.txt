@@ -1,0 +1,37 @@
+Extended Interface Usage: We explored extending the TypeScript interface 
+for the Issue type to include additional relational data (assignedToUser). 
+This approach allows us to work with an extended data structure in specific 
+components without altering the global data model.
+
+Targeted Data Extension: By extending the interface at the component level (IssueTable), 
+we localized the change to where it's needed, thus maintaining the integrity of the data 
+structure used elsewhere in the application.
+
+TypeScript Type Handling: We learned about handling TypeScript types to align with the actual 
+data structure expected in components, particularly when dealing with 
+relational data from databases like Prisma.
+
+Steps Taken for Sorting by Assignee
+Extended Issue Interface:
+
+Created an ExtendedIssue interface that includes the assignedToUser property, 
+allowing the IssueTable component to recognize and utilize this additional data.
+Updating Data Fetching Logic:
+
+Ensured the issues data fetched for the IssueTable includes the assignedToUser relation, 
+so that each issue object contains information about its assignee.
+Implementing Assignee Column:
+
+Added a new column to the IssueTable for displaying the assignee, 
+which shows the avatar if an assignee is present and a placeholder (-) otherwise.
+Sorting Logic Consideration:
+
+Discussed the current sorting implementation for ascending and descending order. 
+If you need to sort by assignee, the sorting logic should be adjusted to 
+consider the assignedToUser field, such as sorting by the user's name.
+Handling Multiple Users Sorting:
+
+If multiple users are assigned to issues, and you want to sort by assignee, 
+the sorting would typically be alphabetical by the assignee's name or another relevant field. 
+The exact sorting behavior will depend on how you implement the sorting logic
+ in your backend query or frontend logic.

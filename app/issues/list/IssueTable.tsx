@@ -1,12 +1,17 @@
 import { IssueStatusBadge } from '@/app/components';
-import { Issue, Status } from '@prisma/client';
+import { Status } from '@prisma/client';
 import { ArrowDownIcon, ArrowUpIcon } from '@radix-ui/react-icons';
-import { Table } from '@radix-ui/themes';
+import { Avatar, Table } from '@radix-ui/themes';
 import { default as Link, default as NextLink } from 'next/link';
+import { Issue as PrismaIssue, User } from '@prisma/client';
+
+interface ExtendedIssue extends PrismaIssue {
+  assignedToUser?: User | null;
+}
 
 export interface IssueQuery {
   status: Status;
-  orderBy: keyof Issue;
+  orderBy: keyof ExtendedIssue;
   page: string;
   sortOrder?: 'asc' | 'desc';
   pageSize?: string;
@@ -14,7 +19,7 @@ export interface IssueQuery {
 
 interface Props {
   searchParams: IssueQuery;
-  issues: Issue[];
+  issues: ExtendedIssue[];
 }
 
 const IssueTable = ({ searchParams, issues }: Props) => {
@@ -67,6 +72,18 @@ const IssueTable = ({ searchParams, issues }: Props) => {
             <Table.Cell className="hidden md:table-cell">
               {issue.createdAt.toDateString()}
             </Table.Cell>
+            <Table.Cell>
+              {issue.assignedToUser ? (
+                <Avatar
+                  src={issue.assignedToUser.image || undefined}
+                  fallback="?"
+                  size="2"
+                  radius="full"
+                />
+              ) : (
+                '-'
+              )}
+            </Table.Cell>
           </Table.Row>
         ))}
       </Table.Body>
@@ -74,7 +91,11 @@ const IssueTable = ({ searchParams, issues }: Props) => {
   );
 };
 
-const columns: { label: string; value: keyof Issue; className?: string }[] = [
+const columns: {
+  label: string;
+  value: keyof ExtendedIssue;
+  className?: string;
+}[] = [
   {
     label: 'Issue',
     value: 'title',
@@ -87,6 +108,11 @@ const columns: { label: string; value: keyof Issue; className?: string }[] = [
   {
     label: 'Created',
     value: 'createdAt',
+    className: 'hidden md:table-cell',
+  },
+  {
+    label: 'Assigned To',
+    value: 'assignedToUserId',
     className: 'hidden md:table-cell',
   },
 ];
