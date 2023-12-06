@@ -32,12 +32,16 @@ const IssueDetailPage = async ({ params }: Props) => {
           <IssueDetails issue={issue} />
 
           {session && (
-            <Box className="md:col-span-4" my="4">
+            <Box className="my-6">
               <AddComment issueId={issue.id} />
             </Box>
           )}
-          <CommentSection comments={comments || []} users={users || []} />
+
+          <Box className="my-6">
+            <CommentSection comments={comments || []} users={users || []} />
+          </Box>
         </Box>
+
         {session && (
           <Box>
             <Flex direction="column" gap="4">

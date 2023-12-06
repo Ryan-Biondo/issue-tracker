@@ -20,20 +20,22 @@ const AddComment = ({ issueId }: AddCommentProps) => {
   const router = useRouter();
   const [isSubmitting, setSubmitting] = useState(false);
   const [error, setError] = useState('');
+
+  // Destructure the 'reset' function from useForm
   const {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm<CommentFormData>();
 
   const onSubmit = handleSubmit(async (data) => {
     try {
       setSubmitting(true);
-      // Include the issueId in the request
-      const payload = { ...data, issueId: issueId };
-      console.log('Sending comment payload:', payload);
+      const payload = { ...data, issueId };
       await axios.post(`/api/issues/${issueId}/comments`, payload);
       setError('');
+      reset();
       router.refresh();
     } catch (error) {
       setError('Failed to submit comment. Please try again.');

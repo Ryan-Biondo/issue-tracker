@@ -77,7 +77,7 @@ const IssueTable = ({ searchParams, issues }: Props) => {
                 <Avatar
                   src={issue.assignedToUser.image || undefined}
                   fallback="?"
-                  size="2"
+                  size="1"
                   radius="full"
                 />
               ) : (
