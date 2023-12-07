@@ -1,12 +1,12 @@
 'use client';
-import ErrorMessage from '@/app/components/ErrorMessage';
-import Spinner from '@/app/components/Spinner';
+import { Spinner } from '@/app/components';
 import { Pencil1Icon } from '@radix-ui/react-icons';
 import { Button, TextField } from '@radix-ui/themes';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import toast, { Toaster } from 'react-hot-toast'; // Import toast and Toaster
 
 interface CommentFormData {
   content: string;
@@ -19,9 +19,7 @@ interface AddCommentProps {
 const AddComment = ({ issueId }: AddCommentProps) => {
   const router = useRouter();
   const [isSubmitting, setSubmitting] = useState(false);
-  const [error, setError] = useState('');
 
-  // Destructure the 'reset' function from useForm
   const {
     register,
     handleSubmit,
@@ -34,11 +32,11 @@ const AddComment = ({ issueId }: AddCommentProps) => {
       setSubmitting(true);
       const payload = { ...data, issueId };
       await axios.post(`/api/issues/${issueId}/comments`, payload);
-      setError('');
       reset();
       router.refresh();
+      toast.success('Comment added successfully.'); // Display success toast
     } catch (error) {
-      setError('Failed to submit comment. Please try again.');
+      toast.error('Failed to submit comment. Please try again.'); // Display error toast
     } finally {
       setSubmitting(false);
     }
@@ -46,7 +44,6 @@ const AddComment = ({ issueId }: AddCommentProps) => {
 
   return (
     <div className="w-full">
-      {error && <ErrorMessage>{error}</ErrorMessage>}
       <form className="space-y-2" onSubmit={onSubmit}>
         <TextField.Root>
           <TextField.Input
@@ -54,12 +51,14 @@ const AddComment = ({ issueId }: AddCommentProps) => {
             {...register('content')}
           />
         </TextField.Root>
-        <ErrorMessage>{errors.content?.message}</ErrorMessage>
+        {errors.content && <span>{errors.content.message}</span>}{' '}
+        {/* Display form errors */}
         <Button className="w-full md:w-auto" disabled={isSubmitting}>
           <Pencil1Icon />
           {isSubmitting ? <Spinner /> : 'Add Comment'}
         </Button>
       </form>
+      <Toaster position="bottom-center" reverseOrder={false} />
     </div>
   );
 };

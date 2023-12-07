@@ -38,7 +38,11 @@ const IssueDetailPage = async ({ params }: Props) => {
           )}
 
           <Box className="my-6">
-            <CommentSection comments={comments || []} users={users || []} />
+            <CommentSection
+              comments={comments || []}
+              users={users || []}
+              issueId={issueId}
+            />
           </Box>
         </Box>
 

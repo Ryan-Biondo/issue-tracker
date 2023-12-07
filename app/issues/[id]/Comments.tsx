@@ -1,21 +1,22 @@
 import React from 'react';
-import { Avatar, Card, Flex, Text } from '@radix-ui/themes';
+import { Avatar, Button, Card, Flex, Text } from '@radix-ui/themes';
 import { Comment, User } from '@prisma/client';
+import { useRouter } from 'next/navigation';
+import axios from 'axios';
+import DeleteCommentButton from './DeleteCommentButton';
 
 interface CommentsProps {
   comment: Comment;
   user: User | null;
+  issueId: number;
 }
 
-const Comments = ({ comment, user }: CommentsProps) => {
+const Comments = ({ comment, user, issueId }: CommentsProps) => {
   const formattedTimestamp = new Date(comment.createdAt).toLocaleString();
 
   if (!user) {
     return null;
   }
-
-  // Logic to determine if the current user can edit the comment
-  const canEdit = comment.authorEmail === user.email;
 
   return (
     <Flex gap="4" align="center">
@@ -32,12 +33,10 @@ const Comments = ({ comment, user }: CommentsProps) => {
         <Text size="3" as="p">
           {comment.content}
         </Text>
-        {/* {canEdit && (
-          <div className="flex justify-end">
-            <button>Edit</button>
-            <button>Delete</button>
-          </div>
-        )} */}
+
+        <div className="flex justify-end">
+          <DeleteCommentButton commentId={comment.id} issueId={issueId} />
+        </div>
       </Card>
     </Flex>
   );
