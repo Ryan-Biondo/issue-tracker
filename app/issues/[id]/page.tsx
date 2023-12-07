@@ -15,11 +15,19 @@ interface Props {
   params: { id: string };
 }
 
+async function fetchIssue(issueId: number) {
+  return await prisma.issue.findUnique({
+    where: { id: issueId },
+    include: {
+      assignedToUser: true,
+    },
+  });
+}
+
 const IssueDetailPage = async ({ params }: Props) => {
   const session = await getServerSession(authOptions);
   const issueId = parseInt(params.id);
-
-  const issue = await prisma.issue.findUnique({ where: { id: issueId } });
+  const issue = await fetchIssue(issueId);
   if (!issue) notFound();
 
   const comments = await prisma.comment.findMany({ where: { issueId } });
@@ -60,5 +68,14 @@ const IssueDetailPage = async ({ params }: Props) => {
     </Flex>
   );
 };
+
+// Correctly implement the generateMetadata function
+export async function generateMetadata({ params }: Props) {
+  const issue = await fetchIssue(parseInt(params.id));
+  return {
+    title: issue?.title || 'Issue Details',
+    description: 'Details of issue ' + (issue?.id || ''),
+  };
+}
 
 export default IssueDetailPage;
