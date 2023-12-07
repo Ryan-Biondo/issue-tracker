@@ -1,7 +1,8 @@
 import prisma from '@/prisma/client';
 import { Avatar, Card, Flex, Heading, Table } from '@radix-ui/themes';
-import Link from 'next/link';
+import React from 'react';
 import { IssueStatusBadge } from './components';
+import Link from 'next/link';
 
 const LatestIssues = async () => {
   const issues = await prisma.issue.findMany({
@@ -11,6 +12,7 @@ const LatestIssues = async () => {
       assignedToUser: true,
     },
   });
+
   return (
     <Card>
       <Heading size="4" mb="5">
