@@ -22,4 +22,5 @@ datasource db {
 -edit .env to access db
 - change to mysql, root user, pw, 3306 is for mysql, project name, no queries needed
 DATABASE_URL="mysql://root:randompassword@localhost:3306/project-name"
+
 *MAKE SURE .env is hidden before you commit
